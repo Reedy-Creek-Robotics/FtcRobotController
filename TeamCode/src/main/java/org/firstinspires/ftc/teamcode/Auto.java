@@ -9,11 +9,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-
 @Autonomous(name = "Auto", group = "Mechanum")
 public class Auto extends LinearOpMode {
 
     DcMotor m1, m2, m3, m4;
+    Servo grabber;
     //GyroSensor gyro;
     BNO055IMU imu;
     ColorSensor colorSensor;
@@ -27,6 +27,7 @@ public class Auto extends LinearOpMode {
         m2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         m3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         m4.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        grabber = hardwareMap.servo.get("grabber");
 
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
@@ -36,7 +37,7 @@ public class Auto extends LinearOpMode {
         waitForStart();
         ElapsedTime t = new ElapsedTime();
 
-
+        grabber.setPosition(0.5);
         while (opModeIsActive()&& t.seconds()<=2.60) {
             setFront(1);
             telemetry.addData("Time", t.seconds());
