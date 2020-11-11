@@ -19,12 +19,10 @@ public class Auto extends LinearOpMode {
     ColorSensor colorSensor;
     Servo backServo;
     public void runOpMode() {
-        m1 = hardwareMap.dcMotor.get("back_left_motor");
-        m2 = hardwareMap.dcMotor.get("front_left_motor");
-        m3 = hardwareMap.dcMotor.get("front_right_motor");
-        m4 = hardwareMap.dcMotor.get("back_right_motor");
-        m1.setDirection(DcMotor.Direction.REVERSE);
-        m2.setDirection(DcMotor.Direction.REVERSE);
+        m1 = hardwareMap.dcMotor.get("frontLeft");
+        m2 = hardwareMap.dcMotor.get("backLeft");
+        m3 = hardwareMap.dcMotor.get("frontRight");
+        m4 = hardwareMap.dcMotor.get("backRight");
         m1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         m2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         m3.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -34,8 +32,6 @@ public class Auto extends LinearOpMode {
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(new BNO055IMU.Parameters());
 
-        colorSensor = hardwareMap.colorSensor.get("color_sensor");
-        backServo = hardwareMap.servo.get("back_servo");
 
         waitForStart();
         ElapsedTime t = new ElapsedTime();
@@ -50,10 +46,10 @@ public class Auto extends LinearOpMode {
     }
 
     public void setFront(double Front) {
-        m1 = hardwareMap.dcMotor.get("back_left_motor");
-        m2 = hardwareMap.dcMotor.get("front_left_motor");
-        m3 = hardwareMap.dcMotor.get("front_right_motor");
-        m4 = hardwareMap.dcMotor.get("back_right_motor");
+        m1 = hardwareMap.dcMotor.get("frontLeft");
+        m2 = hardwareMap.dcMotor.get("backLeft");
+        m3 = hardwareMap.dcMotor.get("frontRight");
+        m4 = hardwareMap.dcMotor.get("backRight");
         m1.setPower(Front);
         m2.setPower(Front);
         m3.setPower(Front);
@@ -61,50 +57,50 @@ public class Auto extends LinearOpMode {
 
     }
     public void setBack(double Back) {
-        m1 = hardwareMap.dcMotor.get("back_left_motor");
-        m2 = hardwareMap.dcMotor.get("front_left_motor");
-        m3 = hardwareMap.dcMotor.get("front_right_motor");
-        m4 = hardwareMap.dcMotor.get("back_right_motor");
+        m1 = hardwareMap.dcMotor.get("frontLeft");
+        m2 = hardwareMap.dcMotor.get("backLeft");
+        m3 = hardwareMap.dcMotor.get("frontRight");
+        m4 = hardwareMap.dcMotor.get("backRight");
         m1.setPower(-Back);
         m2.setPower(-Back);
         m3.setPower(-Back);
         m4.setPower(-Back);
     }
     public void setLeft(double Left) {
-        m1 = hardwareMap.dcMotor.get("back_left_motor");
-        m2 = hardwareMap.dcMotor.get("front_left_motor");
-        m3 = hardwareMap.dcMotor.get("front_right_motor");
-        m4 = hardwareMap.dcMotor.get("back_right_motor");
+        m1 = hardwareMap.dcMotor.get("frontLeft");
+        m2 = hardwareMap.dcMotor.get("backLeft");
+        m3 = hardwareMap.dcMotor.get("frontRight");
+        m4 = hardwareMap.dcMotor.get("backRight");
         m1.setPower(Left);
         m2.setPower(-Left);
         m3.setPower(Left);
         m4.setPower(-Left);
     }
     public void setRight(double Right) {
-        m1 = hardwareMap.dcMotor.get("back_left_motor");
-        m2 = hardwareMap.dcMotor.get("front_left_motor");
-        m3 = hardwareMap.dcMotor.get("front_right_motor");
-        m4 = hardwareMap.dcMotor.get("back_right_motor");
+        m1 = hardwareMap.dcMotor.get("frontLeft");
+        m2 = hardwareMap.dcMotor.get("backLeft");
+        m3 = hardwareMap.dcMotor.get("frontRight");
+        m4 = hardwareMap.dcMotor.get("backRight");
         m1.setPower(-Right);
         m2.setPower(Right);
         m3.setPower(-Right);
         m4.setPower(Right);
     }
     public void setTurnL(double TurnL) {
-        m1 = hardwareMap.dcMotor.get("back_left_motor");
-        m2 = hardwareMap.dcMotor.get("front_left_motor");
-        m3 = hardwareMap.dcMotor.get("front_right_motor");
-        m4 = hardwareMap.dcMotor.get("back_right_motor");
+        m1 = hardwareMap.dcMotor.get("frontLeft");
+        m2 = hardwareMap.dcMotor.get("backLeft");
+        m3 = hardwareMap.dcMotor.get("frontRight");
+        m4 = hardwareMap.dcMotor.get("backRight");
         m1.setPower(-TurnL);
         m2.setPower(-TurnL);
         m3.setPower(TurnL);
         m4.setPower(TurnL);
     }
     public void setTurnR(double TurnR) {
-        m1 = hardwareMap.dcMotor.get("back_left_motor");
-        m2 = hardwareMap.dcMotor.get("front_left_motor");
-        m3 = hardwareMap.dcMotor.get("front_right_motor");
-        m4 = hardwareMap.dcMotor.get("back_right_motor");
+        m1 = hardwareMap.dcMotor.get("frontLeft");
+        m2 = hardwareMap.dcMotor.get("backLeft");
+        m3 = hardwareMap.dcMotor.get("frontRight");
+        m4 = hardwareMap.dcMotor.get("backRight");
         m1.setPower(TurnR);
         m2.setPower(TurnR);
         m3.setPower(-TurnR);
