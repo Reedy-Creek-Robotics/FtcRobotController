@@ -12,10 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name = "Auto", group = "Mechanum")
 public class Auto extends LinearOpMode {
 
-    DcMotor frontLeft;
-    DcMotor backLeft;
-    DcMotor frontRight;
-    DcMotor backRight;
+    DcMotor frontLeft,backLeft, frontRight, backRight;
     Servo grabber;
     //GyroSensor gyro;
     BNO055IMU imu;
