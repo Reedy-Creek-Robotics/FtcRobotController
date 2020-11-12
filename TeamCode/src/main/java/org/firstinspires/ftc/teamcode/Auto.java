@@ -12,37 +12,54 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name = "Auto", group = "Mechanum")
 public class Auto extends LinearOpMode {
 
-    DcMotor frontLeft,backLeft, frontRight, backRight;
-    Servo grabber;
-    //GyroSensor gyro;
-    BNO055IMU imu;
-    ColorSensor colorSensor;
-    Servo backServo;
+    DcMotor frontLeft,backLeft,frontRight,backRight;
+    public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled
+    //Ticks per revoltion = 537.6
+    //wheel size is 100mm and circumfrence ~31.415 cm
+
     public void runOpMode() {
-        frontLeft = hardwareMap.dcMotor.get("frontLeft");
         backLeft = hardwareMap.dcMotor.get("backLeft");
+        frontLeft = hardwareMap.dcMotor.get("frontLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        //imu = hardwareMap.get(BNO055IMU.class, "imu");
-        //imu.initialize(new BNO055IMU.Parameters());
+
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        backLeft.setTargetPosition((int) (180 * TICKS_PER_CM)); //ticks
+        frontLeft.setTargetPosition((int) (180 * TICKS_PER_CM));
+        frontRight.setTargetPosition((int) (-180 * TICKS_PER_CM));
+        backRight.setTargetPosition((int) (-180 * TICKS_PER_CM));
+
 
         waitForStart();
         ElapsedTime t = new ElapsedTime();
+        frontLeft.setPower(1);
+        backLeft.setPower(1);
+        frontRight.setPower(1);
+        backRight.setPower(1);
 
-        grabber.setPosition(0.5);
-        while (opModeIsActive()&& t.seconds()<=2.60) {
-            setFront(0.5);
+        while (opModeIsActive())  {
+            setFront(1);
             telemetry.addData("Time", t.seconds());
-
+            telemetry.addData("encoder-bck-left", backLeft.getCurrentPosition() + "  busy=" + backLeft.isBusy());
+            telemetry.addData("encoder-bck-right", backRight.getCurrentPosition() + "  busy=" + backRight.isBusy());
+            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" +frontLeft.isBusy());
+            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.update();
+            idle();
         }
+        frontLeft.setPower(0);
+        backLeft.setPower(0);
+        frontRight.setPower(0);
+        backRight.setPower(0);
+
+        resetStartTime();
 
     }
-
     public void setFront(double Front) {
         frontLeft.setPower(-Front);
         backLeft.setPower(-Front);
@@ -81,7 +98,7 @@ public class Auto extends LinearOpMode {
         backRight.setPower(-TurnR);
     }
 
-}
 
+}
 
 
