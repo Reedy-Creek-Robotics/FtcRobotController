@@ -13,6 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Auto extends LinearOpMode {
 
     DcMotor frontLeft,backLeft,frontRight,backRight;
+    Servo grabber;
     public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled
     //Ticks per revoltion = 537.6
     //wheel size is 100mm and circumfrence ~31.415 cm
@@ -22,7 +23,7 @@ public class Auto extends LinearOpMode {
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
-
+        grabber = hardwareMap.servo.get("grabber");
 
         frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
