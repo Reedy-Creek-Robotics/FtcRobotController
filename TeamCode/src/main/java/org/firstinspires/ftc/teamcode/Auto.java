@@ -12,17 +12,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @Autonomous(name = "Auto", group = "Mechanum")
 public class Auto extends LinearOpMode {
 
-    DcMotor frontLeft = hardwareMap.dcMotor.get("frontLeft");
-    DcMotor backLeft = hardwareMap.dcMotor.get("backLeft");
-    DcMotor frontRight = hardwareMap.dcMotor.get("frontRight");
-    DcMotor backRight = hardwareMap.dcMotor.get("backRight");
-    Servo grabber = hardwareMap.servo.get("grabber");
+    DcMotor frontLeft;
+    DcMotor backLeft;
+    DcMotor frontRight;
+    DcMotor backRight;
+    Servo grabber;
     //GyroSensor gyro;
     BNO055IMU imu;
     ColorSensor colorSensor;
     Servo backServo;
     public void runOpMode() {
-
+        frontLeft = hardwareMap.dcMotor.get("frontLeft");
+        backLeft = hardwareMap.dcMotor.get("backLeft");
+        frontRight = hardwareMap.dcMotor.get("frontRight");
+        backRight = hardwareMap.dcMotor.get("backRight");
         frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
