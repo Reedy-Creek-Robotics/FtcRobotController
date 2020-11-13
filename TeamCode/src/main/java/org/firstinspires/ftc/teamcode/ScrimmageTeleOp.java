@@ -101,11 +101,11 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 }
 
                 if (gamepad2.y && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
-                    if (loader.getPosition() == 0) {
+                    if (loader.getPosition() == 0.2) {
                         loader.setPosition(.5);
                     }
                     else {
-                        loader.setPosition(0);
+                        loader.setPosition(0.2);
                     }
                     timeSinceLastPress.reset();
                 }
@@ -122,7 +122,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
                 }
 
-                intake.setPower(-gamepad2.left_stick_y);
+                //intake.setPower(-gamepad2.left_stick_y);
 
                 if (gamepad1.dpad_up && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){
                     if (wheelsPowerFactor < 1) {
