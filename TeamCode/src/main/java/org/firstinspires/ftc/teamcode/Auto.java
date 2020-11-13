@@ -30,10 +30,10 @@ public class Auto extends LinearOpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        backLeft.setTargetPosition((int) (180 * TICKS_PER_CM)); //ticks
-        frontLeft.setTargetPosition((int) (180 * TICKS_PER_CM));
-        frontRight.setTargetPosition((int) (-180 * TICKS_PER_CM));
-        backRight.setTargetPosition((int) (-180 * TICKS_PER_CM));
+        backLeft.setTargetPosition((int) (185 * TICKS_PER_CM)); //ticks
+        frontLeft.setTargetPosition((int) (185 * TICKS_PER_CM));
+        frontRight.setTargetPosition((int) (-185 * TICKS_PER_CM));
+        backRight.setTargetPosition((int) (-185 * TICKS_PER_CM));
 
 
         waitForStart();
