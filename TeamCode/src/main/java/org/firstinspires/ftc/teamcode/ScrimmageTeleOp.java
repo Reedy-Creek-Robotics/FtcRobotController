@@ -22,6 +22,8 @@ public class ScrimmageTeleOp extends LinearOpMode {
     private Servo grabber;
     private DcMotor lifter;
     private DcMotor intake;
+    private DcMotor shooter;
+    private Servo loader;
 
 
 
@@ -38,7 +40,8 @@ public class ScrimmageTeleOp extends LinearOpMode {
         grabber = hardwareMap.servo.get("grabber");
         lifter = hardwareMap.dcMotor.get("lifter");
         intake = hardwareMap.dcMotor.get("intake");
-
+        shooter = hardwareMap.dcMotor.get("shooter");
+        loader = hardwareMap.servo.get("loader");
 
         boolean isBPressed = false;
         boolean isAPressed = false;
