@@ -30,7 +30,7 @@ public class Auto extends LinearOpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        double distance = 185;
+        double distance = 180;
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
