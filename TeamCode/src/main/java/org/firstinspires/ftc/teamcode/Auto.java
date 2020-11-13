@@ -15,7 +15,6 @@ public class Auto extends LinearOpMode {
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber;
     public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled
-    public static double MOTOR_POWER = 0.25;
     //Ticks per revoltion = 537.6
     //wheel size is 100mm and circumfrence ~31.415 cm
 
@@ -29,10 +28,6 @@ public class Auto extends LinearOpMode {
 
 
         double distance = 180;
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
@@ -45,10 +40,10 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
         ElapsedTime t = new ElapsedTime();
-        frontLeft.setPower(MOTOR_POWER);
-        backLeft.setPower(MOTOR_POWER);
-        frontRight.setPower(MOTOR_POWER);
-        backRight.setPower(MOTOR_POWER);
+        frontLeft.setPower(1);
+        backLeft.setPower(1);
+        frontRight.setPower(1);
+        backRight.setPower(1);
 
         while (opModeIsActive())  {
             setFront(1);
