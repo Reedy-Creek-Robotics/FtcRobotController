@@ -91,7 +91,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
                 if (gamepad2.x && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){
                     if (shooter.getPower() == 0){
-                        shooter.setPower(1);
+                        shooter.setPower(-1);
                         timeSinceLastPress.reset();
                     }
                     else {
