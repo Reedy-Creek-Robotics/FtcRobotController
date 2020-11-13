@@ -40,10 +40,10 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
         ElapsedTime t = new ElapsedTime();
-        frontLeft.setPower(1);
-        backLeft.setPower(1);
-        frontRight.setPower(1);
-        backRight.setPower(1);
+        frontLeft.setPower(0.25);
+        backLeft.setPower(0.25);
+        frontRight.setPower(0.25);
+        backRight.setPower(0.25);
 
         while (opModeIsActive())  {
             setFront(1);
