@@ -62,9 +62,9 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 frontRight.setPower(-(drive + (strafe - rotate)));
                 backRight.setPower(-(drive - (strafe + rotate)));
 
-                double v = ((-1.0f/2.0f)*gamepad2.left_stick_y)+(1.0f/2.0f);
-                loader.setPosition(v);
-                telemetry.addData("servo", v);
+                //double v = ((-1.0f/2.0f)*gamepad2.left_stick_y)+(1.0f/2.0f);
+                //loader.setPosition(v);
+                //telemetry.addData("servo", v);
 
                 if (gamepad2.a && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){
                     if (grabber.getPosition() <= 0.3){
@@ -101,7 +101,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 }
 
                 if (gamepad2.y && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
-                    if (loader.getPosition() == 0.2) {
+                    if (loader.getPosition() < 0.3) {
                         loader.setPosition(.5);
                     }
                     else {
@@ -122,7 +122,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
                 }
 
-                //intake.setPower(-gamepad2.left_stick_y);
+                intake.setPower(-gamepad2.left_stick_y);
 
                 if (gamepad1.dpad_up && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){
                     if (wheelsPowerFactor < 1) {
