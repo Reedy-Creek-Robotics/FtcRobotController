@@ -28,7 +28,7 @@ public class Auto extends LinearOpMode {
 
 
         double distance = 180;
-        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
+        /*backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
@@ -36,17 +36,13 @@ public class Auto extends LinearOpMode {
         backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
+*/
 
         waitForStart();
         ElapsedTime t = new ElapsedTime();
-        frontLeft.setPower(0.25);
-        backLeft.setPower(0.25);
-        frontRight.setPower(0.25);
-        backRight.setPower(0.25);
 
-        while (opModeIsActive())  {
-            setFront(1);
+        setBack(0.25);
+        while (opModeIsActive() && t.seconds() < 5.5)  {
             telemetry.addData("Time", t.seconds());
             telemetry.addData("encoder-bck-left", backLeft.getCurrentPosition() + "  busy=" + backLeft.isBusy());
             telemetry.addData("encoder-bck-right", backRight.getCurrentPosition() + "  busy=" + backRight.isBusy());
@@ -55,11 +51,20 @@ public class Auto extends LinearOpMode {
             telemetry.update();
             idle();
         }
-        frontLeft.setPower(0);
-        backLeft.setPower(0);
-        frontRight.setPower(0);
-        backRight.setPower(0);
+        setBack(0);
+        grabber.setPosition(0.5);
+        telemetry.addData("Released Wobble", "Yes");
+        telemetry.update();
+        sleep(500);
+        t.reset();
+        setFront(0.25);
+        while (opModeIsActive() && t.seconds() < 0.5)  {
 
+            idle();
+        }
+        setFront(0);
+
+        sleep(5000);
         resetStartTime();
 
     }
