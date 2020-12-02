@@ -14,6 +14,7 @@ public class Auto extends LinearOpMode {
 
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber;
+    ElapsedTime t;
     public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled
     //Ticks per revoltion = 537.6
     //wheel size is 100mm and circumfrence ~31.415 cm
@@ -23,90 +24,98 @@ public class Auto extends LinearOpMode {
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
-        grabber = hardwareMap.servo.get("grabber");
 
+        waitForStart();
+        t = new ElapsedTime();
+        moveForward(10);
+        moveBackward(10);
+        turnLeft(62);//62=90 degrees
+        turnRight(124);
+        turnLeft(124);
+        turnRight(62);
+        strafeRight(10);
+        strafeLeft(10);
+        //turnRight(62);
+        //strafeLeft(180);
 
-
-        double distance = 180;
-        /*backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
+    }
+    public void moveForward(double distance) {
+        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        move();
+    }
+    public void moveBackward(double distance) {
+        backLeft.setTargetPosition((int) (-distance  * TICKS_PER_CM)); //ticks
+        frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
+        backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
+        move();
+    }
+    public void strafeLeft(double distance) {
+        backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
+        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
+        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
+        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        move();
+    }
+    public void strafeRight(double distance) {
+        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
+        frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
+        move();
+    }
+    public void turnLeft(double distance) {
+        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
+        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
+        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
+        backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
+        move();
+    }
+    public void turnRight(double distance) {
+        backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
+        frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        move();
+    }
+    public void move(){
         frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-*/
 
-        waitForStart();
-        ElapsedTime t = new ElapsedTime();
+        frontLeft.setPower(1);
+        backLeft.setPower(1);
+        frontRight.setPower(1);
+        backRight.setPower(1);
 
-        setBack(0.25);
-        while (opModeIsActive() && t.seconds() < 5.5)  {
+        while (opModeIsActive())
+        {
             telemetry.addData("Time", t.seconds());
             telemetry.addData("encoder-bck-left", backLeft.getCurrentPosition() + "  busy=" + backLeft.isBusy());
             telemetry.addData("encoder-bck-right", backRight.getCurrentPosition() + "  busy=" + backRight.isBusy());
             telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" +frontLeft.isBusy());
             telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
             telemetry.update();
-            idle();
+            if((Math.abs(backRight.getCurrentPosition()-backRight.getTargetPosition())<10) && (Math.abs(backLeft.getCurrentPosition()-backLeft.getTargetPosition())<10)&& (Math.abs(frontLeft.getCurrentPosition()-frontLeft.getTargetPosition())<10) && (Math.abs(frontRight.getCurrentPosition()-frontRight.getTargetPosition())<10)){
+                break;
+            }
         }
-        setBack(0);
-        grabber.setPosition(0.5);
-        telemetry.addData("Released Wobble", "Yes");
-        telemetry.update();
-        sleep(500);
-        t.reset();
-        setFront(0.25);
-        while (opModeIsActive() && t.seconds() < 0.5)  {
 
-            idle();
-        }
-        setFront(0);
-
-        sleep(5000);
+        frontLeft.setPower(0);
+        backLeft.setPower(0);
+        frontRight.setPower(0);
+        backRight.setPower(0);
         resetStartTime();
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
     }
-    public void setFront(double Front) {
-        frontLeft.setPower(-Front);
-        backLeft.setPower(-Front);
-        frontRight.setPower(Front);
-        backRight.setPower(Front);
-
-    }
-    public void setBack(double Back) {
-        frontLeft.setPower(Back);
-        backLeft.setPower(Back);
-        frontRight.setPower(-Back);
-        backRight.setPower(-Back);
-    }
-    public void setLeft(double Left) {
-        frontLeft.setPower(Left);
-        backLeft.setPower(-Left);
-        frontRight.setPower(Left);
-        backRight.setPower(-Left);
-    }
-    public void setRight(double Right) {
-        frontLeft.setPower(-Right);
-        backLeft.setPower(Right);
-        frontRight.setPower(-Right);
-        backRight.setPower(Right);
-    }
-    public void setTurnL(double TurnL) {
-        frontLeft.setPower(-TurnL);
-        backLeft.setPower(-TurnL);
-        frontRight.setPower(TurnL);
-        backRight.setPower(TurnL);
-    }
-    public void setTurnR(double TurnR) {
-        frontLeft.setPower(TurnR);
-        backLeft.setPower(TurnR);
-        frontRight.setPower(-TurnR);
-        backRight.setPower(-TurnR);
-    }
-
-
 }
 
 
