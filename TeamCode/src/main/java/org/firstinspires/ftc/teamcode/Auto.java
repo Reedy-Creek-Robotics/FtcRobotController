@@ -103,7 +103,7 @@ public class Auto extends LinearOpMode {
         frontRight.setPower(WHEEL_POWER * frontRightDirection);
         backRight.setPower(WHEEL_POWER * backRightDirection);
 
-        while (opModeIsActive())
+        while (opModeIsActive() && backRight.isBusy() && backLeft.isBusy() && frontLeft.isBusy() && frontRight.isBusy())
         {
             telemetry.addData("Time", t.seconds());
             telemetry.addData("encoder-bck-left", backLeft.getCurrentPosition() + " power= " + backLeft.getPower() +  "  busy=" + backLeft.isBusy());
@@ -111,16 +111,13 @@ public class Auto extends LinearOpMode {
             telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + " power= " + frontLeft.getPower() +  "  busy=" +frontLeft.isBusy());
             telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + " power= " + frontRight.getPower() +  "  busy=" + frontRight.isBusy());
             telemetry.update();
-            if((Math.abs(backRight.getCurrentPosition()-backRight.getTargetPosition())<10) && (Math.abs(backLeft.getCurrentPosition()-backLeft.getTargetPosition())<10)&& (Math.abs(frontLeft.getCurrentPosition()-frontLeft.getTargetPosition())<10) && (Math.abs(frontRight.getCurrentPosition()-frontRight.getTargetPosition())<10)){
-                break;
-            }
         }
 
         frontLeft.setPower(0);
         backLeft.setPower(0);
         frontRight.setPower(0);
         backRight.setPower(0);
-        resetStartTime();
+        //resetStartTime();
 
 
     }
