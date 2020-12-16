@@ -16,6 +16,9 @@ public class Auto extends LinearOpMode {
     Servo grabber;
     ElapsedTime t;
     public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled
+    public static double WHEEL_POWER = .25;
+    public static int FORWARD = 1;
+    public static int BACKWARD = -1;
     //Ticks per revoltion = 537.6
     //wheel size is 100mm and circumfrence ~31.415 cm
 
@@ -27,14 +30,15 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
         t = new ElapsedTime();
-        moveForward(10);
-        moveBackward(10);
-        turnLeft(62);//62=90 degrees
-        turnRight(124);
-        turnLeft(124);
-        turnRight(62);
-        strafeRight(10);
-        strafeLeft(10);
+        moveForward(-100);
+        //moveForward(10);
+        //moveBackward(10);
+        //turnLeft(62);//62=90 degrees
+        //turnRight(124);
+        //turnLeft(124);
+        //turnRight(62);
+        //strafeRight(10);
+        //strafeLeft(10);
         //turnRight(62);
         //strafeLeft(180);
 
@@ -44,61 +48,66 @@ public class Auto extends LinearOpMode {
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        move();
+        move(FORWARD, FORWARD, BACKWARD, BACKWARD);
     }
     public void moveBackward(double distance) {
         backLeft.setTargetPosition((int) (-distance  * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        move();
+        //move();
     }
     public void strafeLeft(double distance) {
         backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        move();
+        //move();
     }
     public void strafeRight(double distance) {
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        move();
+        //move();
     }
     public void turnLeft(double distance) {
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        move();
+        //move();
     }
     public void turnRight(double distance) {
         backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        move();
+        //move();
     }
-    public void move(){
+    public void move(int backLeftDirection, int frontLeftDirection, int frontRightDirection, int backRightDirection){
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        frontLeft.setPower(1);
-        backLeft.setPower(1);
-        frontRight.setPower(1);
-        backRight.setPower(1);
+        frontLeft.setPower(WHEEL_POWER * frontLeftDirection);
+        backLeft.setPower(WHEEL_POWER * backLeftDirection);
+        frontRight.setPower(WHEEL_POWER * frontRightDirection);
+        backRight.setPower(WHEEL_POWER * backRightDirection);
 
         while (opModeIsActive())
         {
             telemetry.addData("Time", t.seconds());
-            telemetry.addData("encoder-bck-left", backLeft.getCurrentPosition() + "  busy=" + backLeft.isBusy());
-            telemetry.addData("encoder-bck-right", backRight.getCurrentPosition() + "  busy=" + backRight.isBusy());
-            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + "  busy=" +frontLeft.isBusy());
-            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + "  busy=" + frontRight.isBusy());
+            telemetry.addData("encoder-bck-left", backLeft.getCurrentPosition() + " power= " + backLeft.getPower() +  "  busy=" + backLeft.isBusy());
+            telemetry.addData("encoder-bck-right", backRight.getCurrentPosition() + " power= " + backRight.getPower() +  "  busy=" + backRight.isBusy());
+            telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + " power= " + frontLeft.getPower() +  "  busy=" +frontLeft.isBusy());
+            telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + " power= " + frontRight.getPower() +  "  busy=" + frontRight.isBusy());
             telemetry.update();
             if((Math.abs(backRight.getCurrentPosition()-backRight.getTargetPosition())<10) && (Math.abs(backLeft.getCurrentPosition()-backLeft.getTargetPosition())<10)&& (Math.abs(frontLeft.getCurrentPosition()-frontLeft.getTargetPosition())<10) && (Math.abs(frontRight.getCurrentPosition()-frontRight.getTargetPosition())<10)){
                 break;
@@ -110,10 +119,7 @@ public class Auto extends LinearOpMode {
         frontRight.setPower(0);
         backRight.setPower(0);
         resetStartTime();
-        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
     }
 }
