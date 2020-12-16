@@ -18,6 +18,7 @@ public class Auto extends LinearOpMode {
     //public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled(regular)
     public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled(Strafer)
     public static double WHEEL_POWER = .25;
+    public static double CORRECTION = 1.02;
     public static int FORWARD = 1;
     public static int BACKWARD = -1;
     //Ticks per revolution = 537.6(same for both)
@@ -32,7 +33,7 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
         t = new ElapsedTime();
-        moveForward(-100);
+        moveForward(-150);
         //moveForward(10);
         //moveBackward(10);
         //turnLeft(62);//62=90 degrees
@@ -46,10 +47,10 @@ public class Auto extends LinearOpMode {
 
     }
     public void moveForward(double distance) {
-        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
-        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
-        frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION)); //ticks
+        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION));
+        frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM * CORRECTION));
+        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM * CORRECTION));
         move(FORWARD, FORWARD, BACKWARD, BACKWARD);
     }
     public void moveBackward(double distance) {
