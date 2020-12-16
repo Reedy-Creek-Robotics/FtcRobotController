@@ -15,12 +15,14 @@ public class Auto extends LinearOpMode {
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber;
     ElapsedTime t;
-    public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled
+    //public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled(regular)
+    public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled(Strafer)
     public static double WHEEL_POWER = .25;
     public static int FORWARD = 1;
     public static int BACKWARD = -1;
-    //Ticks per revoltion = 537.6
-    //wheel size is 100mm and circumfrence ~31.415 cm
+    //Ticks per revolution = 537.6(same for both)
+    //wheel size is 100mm and circumfrence ~31.415 cm(regular)
+    //wheel size is 96mm and circumference~30.15 cm(strafer chassis)
 
     public void runOpMode() {
         backLeft = hardwareMap.dcMotor.get("backLeft");
