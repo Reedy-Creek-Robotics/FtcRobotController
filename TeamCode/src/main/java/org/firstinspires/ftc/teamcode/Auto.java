@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -19,8 +20,6 @@ public class Auto extends LinearOpMode {
     public static double TICKS_PER_CM = 17.83;// 17.112 tics/cm traveled(Strafer)
     public static double WHEEL_POWER = .50;
     public static double CORRECTION = 1;
-    public static int FORWARD = 1;
-    public static int BACKWARD = -1;
     //Ticks per revolution = 537.6(same for both)
     //wheel size is 100mm and circumfrence ~31.415 cm(regular)
     //wheel size is 96mm and circumference~30.15 cm(strafer chassis)
@@ -31,9 +30,14 @@ public class Auto extends LinearOpMode {
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
 
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        backRight.setDirection(DcMotorSimple.Direction.FORWARD);
+
         waitForStart();
         t = new ElapsedTime();
-        moveForward(-150);
+        moveStraight(-100);
         //moveForward(10);
         //moveBackward(10);
         //turnLeft(62);//62=90 degrees
@@ -46,21 +50,15 @@ public class Auto extends LinearOpMode {
         //strafeLeft(180);
         sleep(5000);
     }
-    public void moveForward(double distance) {
+    public void moveStraight(double distance) {
         //distance = distance + 1.5;
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION));
-        frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM * CORRECTION));
-        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM * CORRECTION));
-        move(FORWARD, FORWARD, BACKWARD, BACKWARD);
+        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION)); //negative
+        backRight.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION)); //negative
+        move();
     }
-    public void moveBackward(double distance) {
-        backLeft.setTargetPosition((int) (-distance  * TICKS_PER_CM)); //ticks
-        frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        //move();
-    }
+
     public void strafeLeft(double distance) {
         backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
@@ -89,7 +87,7 @@ public class Auto extends LinearOpMode {
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         //move();
     }
-    public void move(int backLeftDirection, int frontLeftDirection, int frontRightDirection, int backRightDirection){
+    public void move(){
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -100,10 +98,10 @@ public class Auto extends LinearOpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        frontLeft.setPower(WHEEL_POWER * frontLeftDirection);
-        backLeft.setPower(WHEEL_POWER * backLeftDirection);
-        frontRight.setPower(WHEEL_POWER * frontRightDirection);
-        backRight.setPower(WHEEL_POWER * backRightDirection);
+        frontLeft.setPower(WHEEL_POWER );
+        backLeft.setPower(WHEEL_POWER  );
+        frontRight.setPower(WHEEL_POWER  );
+        backRight.setPower(WHEEL_POWER  );
 
         while (opModeIsActive() && (backRight.isBusy() || backLeft.isBusy() || frontLeft.isBusy() || frontRight.isBusy()))
         {
