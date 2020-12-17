@@ -37,7 +37,8 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
         t = new ElapsedTime();
-        moveStraight(-100);
+        strafeRight(100);
+
         //moveForward(10);
         //moveBackward(10);
         //turnLeft(62);//62=90 degrees
@@ -60,18 +61,18 @@ public class Auto extends LinearOpMode {
     }
 
     public void strafeLeft(double distance) {
-        backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
-        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
-        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        //move();
-    }
-    public void strafeRight(double distance) {
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
+        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        move();
+    }
+    public void strafeRight(double distance) {
+        backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
+        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        //move();
+        move();
     }
     public void turnLeft(double distance) {
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
