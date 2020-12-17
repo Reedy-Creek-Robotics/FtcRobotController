@@ -16,9 +16,9 @@ public class Auto extends LinearOpMode {
     Servo grabber;
     ElapsedTime t;
     //public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled(regular)
-    public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled(Strafer)
-    public static double WHEEL_POWER = .25;
-    public static double CORRECTION = 1.02;
+    public static double TICKS_PER_CM = 17.83;// 17.112 tics/cm traveled(Strafer)
+    public static double WHEEL_POWER = .50;
+    public static double CORRECTION = 1;
     public static int FORWARD = 1;
     public static int BACKWARD = -1;
     //Ticks per revolution = 537.6(same for both)
@@ -44,9 +44,10 @@ public class Auto extends LinearOpMode {
         //strafeLeft(10);
         //turnRight(62);
         //strafeLeft(180);
-
+        sleep(5000);
     }
     public void moveForward(double distance) {
+        //distance = distance + 1.5;
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM * CORRECTION));
@@ -104,7 +105,7 @@ public class Auto extends LinearOpMode {
         frontRight.setPower(WHEEL_POWER * frontRightDirection);
         backRight.setPower(WHEEL_POWER * backRightDirection);
 
-        while (opModeIsActive() && backRight.isBusy() && backLeft.isBusy() && frontLeft.isBusy() && frontRight.isBusy())
+        while (opModeIsActive() && (backRight.isBusy() || backLeft.isBusy() || frontLeft.isBusy() || frontRight.isBusy()))
         {
             telemetry.addData("Time", t.seconds());
             telemetry.addData("encoder-bck-left", backLeft.getCurrentPosition() + " power= " + backLeft.getPower() +  "  busy=" + backLeft.isBusy());
