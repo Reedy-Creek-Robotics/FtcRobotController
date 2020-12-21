@@ -127,6 +127,9 @@ public class ImageUtility {
                 telemetry.addData("# Object Detected", updatedRecognitions.size());
                 // step through the list of recognitions and display boundary info.
                 int i = 0;
+                if (updatedRecognitions.size() == 0){
+                    returnValue = 0;
+                }
                 for (Recognition recognition : updatedRecognitions) {
                     if (recognition.getLabel().equals(LABEL_SECOND_ELEMENT)){
                         returnValue = 1;
@@ -134,9 +137,7 @@ public class ImageUtility {
                     else if (recognition.getLabel().equals(LABEL_FIRST_ELEMENT)){
                         returnValue = 4;
                     }
-                    else {
-                        returnValue = 0;
-                    }
+
                     telemetry.addData(String.format("label (%d)", i), recognition.getLabel()+","+ recognition.getConfidence());
                     telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f", recognition.getLeft(), recognition.getTop());
                     telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f", recognition.getRight(), recognition.getBottom());
@@ -145,7 +146,7 @@ public class ImageUtility {
             }
         }
         else {
-            returnValue = 0;
+            returnValue = -2;
         }
         if (tfod != null) {
             tfod.shutdown();

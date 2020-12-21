@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -28,7 +28,7 @@ public class Auto extends LinearOpMode {
     ElapsedTime t;
     //public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled(regular)
     public static double TICKS_PER_CM = 17.83;// 17.112 tics/cm traveled(Strafer)
-    public static double WHEEL_POWER = .50;
+    public static double WHEEL_POWER = 1;
     public static double CORRECTION = 1;
     //Ticks per revolution = 537.6(same for both)
     //wheel size is 100mm and circumfrence ~31.415 cm(regular)
@@ -51,7 +51,10 @@ public class Auto extends LinearOpMode {
         waitForStart();
         t = new ElapsedTime();
         //strafeRight(-100);
+        moveStraight(100);
+        sleep(500);
         int numRings = iu.getRings();
+        System.out.println("Number of Rings:" + numRings);
         if(numRings == 0){
             moveStraight(75);
         }
