@@ -40,9 +40,9 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
         t = new ElapsedTime();
-        //strafeRight(-100);
+        moveStraight(100);
         int numRings = iu.getRings();
-        //telemetry.addData("Number of Rings", numRings);
+        System.out.println("Number of Rings: " + numRings);
         //telemetry.update();
         //moveForward(10);
         //moveBackward(10);
