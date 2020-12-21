@@ -7,7 +7,17 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.ElapsedTime
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
+import java.util.List;
 
 
 @Autonomous(name = "Auto", group = "Mechanum")
@@ -40,9 +50,20 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
         t = new ElapsedTime();
-        moveStraight(100);
+        //strafeRight(-100);
         int numRings = iu.getRings();
-        System.out.println("Number of Rings: " + numRings);
+        if(numRings == 0){
+            moveStraight(75);
+        }
+        else if(numRings == 1){
+            moveStraight(140);
+            strafeLeft(62);
+        }
+        else if(numRings == 4){
+            moveStraight(200);
+        }
+
+        //telemetry.addData("Number of Rings", numRings);
         //telemetry.update();
         //moveForward(10);
         //moveBackward(10);
