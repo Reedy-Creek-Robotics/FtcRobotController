@@ -37,7 +37,7 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
         t = new ElapsedTime();
-        strafeRight(100);
+        strafeRight(-100);
 
         //moveForward(10);
         //moveBackward(10);
