@@ -35,10 +35,15 @@ public class Auto extends LinearOpMode {
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
         backRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
+        ImageUtility iu = new ImageUtility();
+        iu.init(telemetry, hardwareMap);
+
         waitForStart();
         t = new ElapsedTime();
-        strafeRight(-100);
-
+        //strafeRight(-100);
+        int numRings = iu.getRings();
+        //telemetry.addData("Number of Rings", numRings);
+        //telemetry.update();
         //moveForward(10);
         //moveBackward(10);
         //turnLeft(62);//62=90 degrees
