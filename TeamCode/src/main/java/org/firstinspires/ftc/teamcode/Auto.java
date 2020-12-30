@@ -26,6 +26,7 @@ public class Auto extends LinearOpMode {
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber;
     ElapsedTime t;
+    int numRings;
     //public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled(regular)
     public static double TICKS_PER_CM = 17.83;// 17.112 tics/cm traveled(Strafer)
     public static double WHEEL_POWER = 1;
@@ -54,8 +55,18 @@ public class Auto extends LinearOpMode {
 
         moveStraight(100);
         sleep(500);
-        int numRings = iu.getRings();
+        numRings = iu.getRings();
         System.out.println("Number of Rings:" + numRings);
+        MoveWobble();
+        //shoot
+        strafeLeft(65);
+        moveStraight(-113);
+        //grab wobble
+        strafeRight(105);
+
+     sleep(5000);
+    }
+    public void MoveWobble() {
         if(numRings == 0){
             moveStraight(75);
             //drop wobble
@@ -64,7 +75,7 @@ public class Auto extends LinearOpMode {
         }
         else if(numRings == 1){
             moveStraight(140);
-            strafeLeft(62);
+            strafeLeft(65);
             //drop wobble
             moveStraight(-100);
         }
@@ -74,10 +85,6 @@ public class Auto extends LinearOpMode {
             moveStraight(-153);
             strafeLeft(65);
         }
-     //shoot
-
-
-        sleep(5000);
     }
     public void moveStraight(double distance) {
         //distance = distance + 1.5;
