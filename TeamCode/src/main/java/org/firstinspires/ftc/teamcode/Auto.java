@@ -50,7 +50,7 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
         t = new ElapsedTime();
-        //strafeRight(-100);
+
         moveStraight(100);
         sleep(500);
         int numRings = iu.getRings();
@@ -65,19 +65,12 @@ public class Auto extends LinearOpMode {
         else if(numRings == 4){
             moveStraight(200);
         }
+        turnLeft(62);//62=90 degrees
+        /*turnRight(124);
+        turnLeft(124);
+        turnRight(62);*/
 
-        //telemetry.addData("Number of Rings", numRings);
-        //telemetry.update();
-        //moveForward(10);
-        //moveBackward(10);
-        //turnLeft(62);//62=90 degrees
-        //turnRight(124);
-        //turnLeft(124);
-        //turnRight(62);
-        //strafeRight(10);
-        //strafeLeft(10);
-        //turnRight(62);
-        //strafeLeft(180);
+
         sleep(5000);
     }
     public void moveStraight(double distance) {
@@ -104,15 +97,15 @@ public class Auto extends LinearOpMode {
         move();
     }
     public void turnLeft(double distance) {
-        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
-        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
+        backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
+        frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
         //move();
     }
     public void turnRight(double distance) {
-        backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
-        frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
+        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         //move();
