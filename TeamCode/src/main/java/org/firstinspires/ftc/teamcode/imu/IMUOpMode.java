@@ -37,6 +37,8 @@ public class IMUOpMode extends LinearOpMode {
         // ACTION LOOP
         while (opModeIsActive()) {
             log("Heading (degrees)", Double.toString(getHeading(AngleUnit.DEGREES)), true);
+            rotate( 90, .25);
+            sleep(2000);
         }
     }
 
@@ -99,17 +101,17 @@ public class IMUOpMode extends LinearOpMode {
         double flPower, blPower, frPower, brPower;
 
         // restart imu movement tracking.
-        //resetAngle();
+        resetAngle();
 
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating
         // clockwise (right).
 
-        if (degrees < 0) {   // turn right.
+        if (degrees > 0) {   // turn right.
             flPower = rotate;
             blPower = rotate;
             frPower = rotate;
             brPower = rotate;
-        } else if (degrees > 0) {   // turn left.
+        } else if (degrees < 0) {   // turn left.
             flPower = -rotate;
             blPower = -rotate;
             frPower = -rotate;
@@ -120,22 +122,26 @@ public class IMUOpMode extends LinearOpMode {
         setMotorSpeeds(1, flPower, blPower, frPower, brPower);
 
         // rotate until turn is completed.
-        if (degrees < 0) {
+        if (degrees > 0) {
             log("rotate", "turning clockwise (right, -)");
             // On right turn we have to get off zero first.
             double angle = getAngle();
             while (opModeIsActive() && angle == 0) {
-                log("rotate clockwise,0", "getAngle=" + getAngle());
+                log("rotate clockwise,0", "getAngle=" + getAngle(), true);
                 angle = getAngle();
             }
 
-            while (opModeIsActive() && angle > degrees) {
-                log("rotate clockwise, not 0", "getAngle=" + getAngle());
+            while (opModeIsActive() && angle < degrees) {
+                log("rotate clockwise, not 0", "getAngle=" + getAngle(), true);
                 angle = getAngle();
             }
         } else {   // left turn.
             log("rotate", "turning counter-clockwise (left, +)");
-            while (opModeIsActive() && getAngle() < degrees) {}
+            double angle = getAngle();
+            while (opModeIsActive() && angle > degrees) {
+                log("rotate counter-clockwise, not 0", "getAngle=" + getAngle(), true);
+                angle = getAngle();
+            }
         }
 
         // turn the motors off.
@@ -144,7 +150,7 @@ public class IMUOpMode extends LinearOpMode {
         log("rotate", "end of method angle: " + getAngle());
 
         // reset angle tracking on new heading.
-        resetAngle();
+        //resetAngle();
     }
 
     /**
@@ -208,7 +214,7 @@ public class IMUOpMode extends LinearOpMode {
 
     protected void log(String caption, String message, boolean clear) {
         if( clear ) {
-            telemetry.clear();
+            telemetry.clearAll();
         }
         telemetry.addData(caption, message);
         telemetry.update();
