@@ -30,6 +30,7 @@ public class Auto extends LinearOpMode {
     public static double TICKS_PER_CM = 17.83;// 17.112 tics/cm traveled(Strafer)
     public static double WHEEL_POWER = 1;
     public static double CORRECTION = 1;
+    public static double ROTATION_CORRECTION = (62/90);
     //Ticks per revolution = 537.6(same for both)
     //wheel size is 100mm and circumfrence ~31.415 cm(regular)
     //wheel size is 96mm and circumference~30.15 cm(strafer chassis)
@@ -57,18 +58,23 @@ public class Auto extends LinearOpMode {
         System.out.println("Number of Rings:" + numRings);
         if(numRings == 0){
             moveStraight(75);
+            //drop wobble
+            moveStraight(-30);
+            strafeLeft(65);
         }
         else if(numRings == 1){
             moveStraight(140);
             strafeLeft(62);
+            //drop wobble
+            moveStraight(-100);
         }
         else if(numRings == 4){
             moveStraight(200);
+            //drop wobble
+            moveStraight(-153);
+            strafeLeft(65);
         }
-        turnLeft(62);//62=90 degrees
-        /*turnRight(124);
-        turnLeft(124);
-        turnRight(62);*/
+     //shoot
 
 
         sleep(5000);
@@ -97,17 +103,17 @@ public class Auto extends LinearOpMode {
         move();
     }
     public void turnLeft(double distance) {
-        backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
-        frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
+        backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION)); //ticks
+        frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION));
+        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION));
+        backRight.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION));
         //move();
     }
     public void turnRight(double distance) {
-        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
-        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
-        frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION)); //ticks
+        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION));
+        frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION));
+        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION));
         //move();
     }
     public void move(){
