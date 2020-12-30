@@ -29,7 +29,7 @@ public class Auto extends LinearOpMode {
     int numRings;
     //public static double TICKS_PER_CM = 17.1;// 17.112 tics/cm traveled(regular)
     public static double TICKS_PER_CM = 17.83;// 17.112 tics/cm traveled(Strafer)
-    public static double WHEEL_POWER = 1;
+    public static double WHEEL_POWER = 0.75;
     public static double CORRECTION = 1;
     public static double ROTATION_CORRECTION = (62/90);
     //Ticks per revolution = 537.6(same for both)
@@ -63,7 +63,7 @@ public class Auto extends LinearOpMode {
         moveStraight(-113);
         //grab wobble
         strafeRight(105);
-        moveStraight(-40);
+        moveStraight(-30);
 
         sleep(5000);
     }
