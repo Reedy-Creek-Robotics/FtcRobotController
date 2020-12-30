@@ -63,8 +63,9 @@ public class Auto extends LinearOpMode {
         moveStraight(-113);
         //grab wobble
         strafeRight(105);
+        moveStraight(-40);
 
-     sleep(5000);
+        sleep(5000);
     }
     public void MoveWobble() {
         if(numRings == 0){
