@@ -53,19 +53,31 @@ public class Auto extends LinearOpMode {
         waitForStart();
         t = new ElapsedTime();
 
+        grabber.setPosition(0.2);
         moveStraight(100);
         sleep(500);
         numRings = iu.getRings();
         System.out.println("Number of Rings:" + numRings);
         MoveWobble();
-        //shoot
+
+        shoot();
         strafeLeft(65);
         moveStraight(-113);
-        //grab wobble
+        grabber.setPosition(0.2);
         strafeRight(105);
         moveStraight(-30);
 
         sleep(5000);
+
+        moveStraight(100);
+        MoveWobble();
+        moveStraight(10);
+    }
+    public void shoot(){
+        //turn on shooter
+        //open loader
+        //push ring
+        //close loader
     }
     public void MoveWobble() {
         if(numRings == 0){
@@ -86,6 +98,7 @@ public class Auto extends LinearOpMode {
             moveStraight(-153);
             strafeLeft(65);
         }
+        grabber.setPosition(0.5);
     }
     public void moveStraight(double distance) {
         //distance = distance + 1.5;
