@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -36,6 +37,10 @@ public class RobotTest extends LinearOpMode {
         shooter = hardwareMap.dcMotor.get("shooter");
         lifter = hardwareMap.dcMotor.get("lifter");
         loader = hardwareMap.servo.get("loader");*/
+        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
+        backRight.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         boolean isBPressed = false;
@@ -50,6 +55,7 @@ public class RobotTest extends LinearOpMode {
             while (opModeIsActive()) {
 
 
+
                 //double v = ((-1.0f/2.0f)*gamepad2.left_stick_y)+(1.0f/2.0f);
                 //loader.setPosition(v);
                 //telemetry.addData("servo", v);
@@ -61,7 +67,9 @@ public class RobotTest extends LinearOpMode {
                         frontLeft.setPower(0);
                     } else {
                         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                        frontLeft.setTargetPosition(-1711);
+                        //frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                         frontLeft.setPower(0.25);
                     }
 
@@ -74,7 +82,7 @@ public class RobotTest extends LinearOpMode {
                         frontRight.setPower(0);
                     } else {
                         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                        frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                         frontRight.setPower(0.25);
                     }
 
@@ -86,7 +94,7 @@ public class RobotTest extends LinearOpMode {
                         backLeft.setPower(0);
                     } else {
                         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                         backLeft.setPower(0.25);
                     }
                     timeSinceLastPress.reset();
@@ -97,7 +105,7 @@ public class RobotTest extends LinearOpMode {
                         backRight.setPower(0);
                     } else {
                         backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                        backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
                         backRight.setPower(0.25);
                     }
 

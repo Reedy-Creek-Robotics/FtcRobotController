@@ -59,6 +59,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
     private DcMotor frontRight;
     private DcMotor backRight;
     private Servo grabber;
+    private Servo rotator;
     private DcMotor lifter;
     private DcMotor intake;
     private DcMotor shooter;
@@ -77,16 +78,18 @@ public class ScrimmageTeleOp extends LinearOpMode {
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
         grabber = hardwareMap.servo.get("grabber");
+        rotator = hardwareMap.servo.get("rotator");
         lifter = hardwareMap.dcMotor.get("lifter");
-        intake = hardwareMap.dcMotor.get("intake");
-        shooter = hardwareMap.dcMotor.get("shooter");
-        loader = hardwareMap.servo.get("loader");
+        //intake = hardwareMap.dcMotor.get("intake");
+        //shooter = hardwareMap.dcMotor.get("shooter");
+        //loader = hardwareMap.servo.get("loader");
 
         boolean isBPressed = false;
         boolean isAPressed = false;
         ElapsedTime timeSinceLastPress = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         waitForStart();
         grabber.setPosition(0.5);
+        rotator.setPosition(0);
 
         if (opModeIsActive()) {
             double wheelsPowerFactor = 0.6;
@@ -133,12 +136,23 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     }
                 }
 
+                if (gamepad2.b && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//grabber = pressing a on controller 2(this will close the arm to open them press a again)
+                    if (rotator.getPosition() != 1){
+                        rotator.setPosition(1);
+                        timeSinceLastPress.reset();
+                    }
+                    else {
+                        rotator.setPosition(0);
+                        timeSinceLastPress.reset();
+                    }
+                }
 
+                // lifter
                 if (gamepad2.dpad_up){//press up on the dpad to raise the lifter and down to lower it (on controller 2)
-                    lifter.setPower(1);
+                    lifter.setPower(wheelsPowerFactor);
                 }
                 else if (gamepad2.dpad_down){
-                    lifter.setPower(-1);
+                    lifter.setPower(-wheelsPowerFactor);
                 }
                 else {
                     lifter.setPower(0);
@@ -146,7 +160,9 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
 
 
+
                 //shooter
+                /*
                 if (gamepad2.x && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//shooter = pressing x on controller 2(this will turn the shooter on, press x again to turn it off)
                     if (shooter.getPower() == 0){
                         shooter.setPower(-1);
@@ -157,7 +173,8 @@ public class ScrimmageTeleOp extends LinearOpMode {
                         timeSinceLastPress.reset();
                     }
                 }
-
+                 */
+                /*
                 if (gamepad2.y && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//loader = pressing y on controller 2(this will push the ring, press y again to let another ring in)
                     if (loader.getPosition() < 0.3) {
                         loader.setPosition(.5);
@@ -167,10 +184,11 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     }
                     timeSinceLastPress.reset();
                 }
-
+                */
 
 
                 //intake
+                /*
                 if (gamepad2.b && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//intake = pressing b on controller 2(this will turn the intake on, press b again to turn it off)
                     if (intake.getPower() == 0){
                         intake.setPower(0.75);
@@ -182,14 +200,16 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     }
 
                 }
+                */
 
-                intake.setPower(-gamepad2.left_stick_y);
+
+                //intake.setPower(-gamepad2.left_stick_y);
 
 
                 telemetry.addData("change number", 1.1);
                 telemetry.addData("Drive Power:", drive);
                 telemetry.addData("Wheel power factor:", df2.format(wheelsPowerFactor));
-                telemetry.addData("Intake power factor:", df2.format(intake.getPower()));
+                //telemetry.addData("Intake power factor:", df2.format(intake.getPower()));
                 telemetry.update();
             }
         }
