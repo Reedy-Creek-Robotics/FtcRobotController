@@ -28,6 +28,7 @@ public class Auto extends LinearOpMode {
     DcMotor lifter;
     ElapsedTime t;
     int numRings;
+    double open, close;
     //public static double TICKS_PER_CM = 17.1; // 17.112 tics/cm traveled(regular)
     public static double TICKS_PER_CM = 17.112; // 17.83 tics/cm traveled(Strafer)
     public static double WHEEL_POWER = 0.6;
@@ -49,8 +50,9 @@ public class Auto extends LinearOpMode {
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        grabber.setPosition(0.17);
+        open = 0.17;
+        close = 0.5;
+        grabber.setPosition(close);
         ImageUtility iu = new ImageUtility();
         iu.init(telemetry, hardwareMap);
 
@@ -67,7 +69,7 @@ public class Auto extends LinearOpMode {
         sleep(250);
         rotator.setPosition(1);
         moveStraight(-113);
-        grabber.setPosition(0.17);
+        grabber.setPosition(close);
         strafeRight(105);
         moveStraight(-30);
 
@@ -76,7 +78,7 @@ public class Auto extends LinearOpMode {
     public void MoveWobble() {
         if(numRings == 0){
             moveStraight(75);
-            grabber.setPosition(0.5);
+            grabber.setPosition(open);
             moveStraight(-30);
             strafeLeft(65);
         }
@@ -84,12 +86,12 @@ public class Auto extends LinearOpMode {
             moveStraight(140);
             sleep(250);
             strafeLeft(65);
-            grabber.setPosition(0.5);
+            grabber.setPosition(open);
             moveStraight(-100);
         }
         else if(numRings == 4){
             moveStraight(200);
-            grabber.setPosition(0.5);
+            grabber.setPosition(open);
             moveStraight(-153);
             strafeLeft(65);
         }
