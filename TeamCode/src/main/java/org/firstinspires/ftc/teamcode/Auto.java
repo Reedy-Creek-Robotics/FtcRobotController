@@ -65,10 +65,10 @@ public class Auto extends LinearOpMode {
         System.out.println("Number of Rings:" + numRings);
         MoveWobble();
         //shoot
-        strafeLeft(82);
+        strafeLeft(95);
         sleep(250);
         rotator.setPosition(1);
-        moveStraight(-113);
+        moveStraight(-91);
         grabber.setPosition(close);
         strafeRight(105);
         moveStraight(-30);
