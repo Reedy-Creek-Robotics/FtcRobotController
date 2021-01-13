@@ -69,8 +69,9 @@ public class Auto extends LinearOpMode {
         sleep(250);
         rotator.setPosition(1);
         moveStraight(-91);
+        strafeRight(5);
         grabber.setPosition(close);
-        strafeRight(105);
+        //strafeRight(100);
         moveStraight(-30);
 
         sleep(5000);
