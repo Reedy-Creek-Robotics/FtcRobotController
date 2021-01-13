@@ -24,7 +24,8 @@ import java.util.List;
 public class Auto extends LinearOpMode {
 
     DcMotor frontLeft,backLeft,frontRight,backRight;
-    Servo grabber;
+    Servo grabber,rotator;
+    DcMotor lifter;
     ElapsedTime t;
     int numRings;
     //public static double TICKS_PER_CM = 17.1; // 17.112 tics/cm traveled(regular)
@@ -41,12 +42,15 @@ public class Auto extends LinearOpMode {
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
-
+        grabber = hardwareMap.servo.get("grabber");
+        rotator = hardwareMap.servo.get("rotator");
+        lifter = hardwareMap.dcMotor.get("lifter");
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        grabber.setPosition(0.17);
         ImageUtility iu = new ImageUtility();
         iu.init(telemetry, hardwareMap);
 
@@ -60,8 +64,9 @@ public class Auto extends LinearOpMode {
         MoveWobble();
         //shoot
         strafeLeft(65);
+        rotator.setPosition(1);
         moveStraight(-113);
-        //grab wobble
+        grabber.setPosition(0.17);
         strafeRight(105);
         moveStraight(-30);
 
@@ -70,19 +75,19 @@ public class Auto extends LinearOpMode {
     public void MoveWobble() {
         if(numRings == 0){
             moveStraight(75);
-            //drop wobble
+            grabber.setPosition(0.5);
             moveStraight(-30);
             strafeLeft(65);
         }
         else if(numRings == 1){
             moveStraight(140);
             strafeLeft(65);
-            //drop wobble
+            grabber.setPosition(0.5);
             moveStraight(-100);
         }
         else if(numRings == 4){
             moveStraight(200);
-            //drop wobble
+            grabber.setPosition(0.5);
             moveStraight(-153);
             strafeLeft(65);
         }
