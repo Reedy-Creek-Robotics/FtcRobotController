@@ -30,7 +30,7 @@ public class Auto extends LinearOpMode {
     int numRings;
     //public static double TICKS_PER_CM = 17.1; // 17.112 tics/cm traveled(regular)
     public static double TICKS_PER_CM = 17.112; // 17.83 tics/cm traveled(Strafer)
-    public static double WHEEL_POWER = 0.2;
+    public static double WHEEL_POWER = 0.6;
     public static double CORRECTION = 1.0;
     public static double ROTATION_CORRECTION = (62/90);
     //Ticks per revolution = 537.6(same for both)
@@ -63,7 +63,8 @@ public class Auto extends LinearOpMode {
         System.out.println("Number of Rings:" + numRings);
         MoveWobble();
         //shoot
-        strafeLeft(65);
+        strafeLeft(82);
+        sleep(250);
         rotator.setPosition(1);
         moveStraight(-113);
         grabber.setPosition(0.17);
@@ -81,6 +82,7 @@ public class Auto extends LinearOpMode {
         }
         else if(numRings == 1){
             moveStraight(140);
+            sleep(250);
             strafeLeft(65);
             grabber.setPosition(0.5);
             moveStraight(-100);
