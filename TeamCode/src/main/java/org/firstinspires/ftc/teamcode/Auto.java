@@ -59,82 +59,86 @@ public class Auto extends LinearOpMode {
         waitForStart();
         t = new ElapsedTime();
 
-        moveStraight(100);
+        moveStraight(100, WHEEL_POWER);
         sleep(500);
         numRings = iu.getRings();
         System.out.println("Number of Rings:" + numRings);
         MoveWobble();
         //shoot
-        strafeLeft(95);
+        strafeLeft(95, WHEEL_POWER);
         sleep(250);
         rotator.setPosition(1);
-        moveStraight(-91);
-        strafeRight(5);
+        moveStraight(-91, WHEEL_POWER);
+        strafeRight(5, WHEEL_POWER);
         grabber.setPosition(close);
         //strafeRight(100);
-        moveStraight(-30);
+        moveStraight(-30, WHEEL_POWER);
 
         sleep(5000);
     }
     public void MoveWobble() {
         if(numRings == 0){
-            moveStraight(75);
+            moveStraight(75, WHEEL_POWER);
             grabber.setPosition(open);
-            moveStraight(-30);
-            strafeLeft(65);
+            moveStraight(-30, WHEEL_POWER);
+            strafeLeft(65, WHEEL_POWER);
         }
         else if(numRings == 1){
-            moveStraight(140);
+            moveStraight(140, WHEEL_POWER);
             sleep(250);
-            strafeLeft(65);
+            strafeLeft(65, WHEEL_POWER);
             grabber.setPosition(open);
-            moveStraight(-100);
+            moveStraight(-100, WHEEL_POWER);
         }
         else if(numRings == 4){
-            moveStraight(200);
+            moveStraight(200, WHEEL_POWER);
             grabber.setPosition(open);
-            moveStraight(-153);
-            strafeLeft(65);
+            moveStraight(-153, WHEEL_POWER);
+            strafeLeft(65, WHEEL_POWER);
         }
     }
-    public void moveStraight(double distance) {
-        //distance = distance + 1.5;
-        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION)); //ticks
-        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION));
-        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION)); //negative
-        backRight.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION)); //negative
-        move();
+    public void moveStraight(double distance, double speed) {
+        backLeft.setTargetPosition(-(int) (distance * TICKS_PER_CM * CORRECTION)); //ticks
+        frontLeft.setTargetPosition(-(int) (distance * TICKS_PER_CM * CORRECTION));
+        frontRight.setTargetPosition(-(int) (distance * TICKS_PER_CM * CORRECTION));
+        backRight.setTargetPosition(-(int) (distance * TICKS_PER_CM * CORRECTION));
+        double wheelpower = speed;
+        move(wheelpower);
     }
 
-    public void strafeLeft(double distance) {
+    public void strafeLeft(double distance, double speed) {
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        move();
+        double wheelpower = speed;
+        move(wheelpower);
     }
-    public void strafeRight(double distance) {
+    public void strafeRight(double distance, double speed) {
         backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        move();
+        double wheelpower = speed;
+        move(wheelpower);
     }
-    public void turnLeft(double distance) {
+    public void turnLeft(double distance, double speed) {
         backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION)); //ticks
         frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION));
         frontRight.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION));
         backRight.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION));
-        //move();
+        double wheelpower = speed;
+        move(wheelpower);
     }
-    public void turnRight(double distance) {
+    public void turnRight(double distance, double speed) {
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION));
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION));
-        //move();
+        double wheelpower = speed;
+        //move(wheelpower);
     }
-    public void move(){
+    public void move(double speed){
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
