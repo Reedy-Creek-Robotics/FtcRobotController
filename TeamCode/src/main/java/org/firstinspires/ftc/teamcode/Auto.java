@@ -50,7 +50,7 @@ public class Auto extends LinearOpMode {
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        /*open = 0.17;
+        open = 0.17;
         close = 0.5;
         grabber.setPosition(close);
         ImageUtility iu = new ImageUtility();
@@ -84,11 +84,7 @@ public class Auto extends LinearOpMode {
         //moveStraight(-30);
 
 
-        sleep(5000);*/
-        waitForStart();
-        t = new ElapsedTime();
-        moveStraight(30,1);
-        moveStraight(-30, 0.1);
+        sleep(5000);
     }
     public void MoveWobble() {
         if(numRings == 0){
@@ -116,8 +112,7 @@ public class Auto extends LinearOpMode {
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION));
         frontRight.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION));
         backRight.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION));
-        double wheelpower = speed;
-        move(wheelpower);
+        move();
     }
 
     public void strafeLeft(double distance, double speed) {
@@ -125,34 +120,30 @@ public class Auto extends LinearOpMode {
         frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        double wheelpower = speed;
-        move(wheelpower);
+        move();
     }
     public void strafeRight(double distance, double speed) {
         backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
         backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        double wheelpower = speed;
-        move(wheelpower);
+        move();
     }
     public void turnLeft(double distance, double speed) {
         backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION)); //ticks
         frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION));
         frontRight.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION));
         backRight.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION));
-        double wheelpower = speed;
-        move(wheelpower);
+        move();
     }
     public void turnRight(double distance, double speed) {
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM * ROTATION_CORRECTION));
         frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION));
         backRight.setTargetPosition((int) (-distance * TICKS_PER_CM * ROTATION_CORRECTION));
-        double wheelpower = speed;
-        move(wheelpower);
+        move();
     }
-    public void move(double speed){
+    public void move(){
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -163,10 +154,10 @@ public class Auto extends LinearOpMode {
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        frontLeft.setPower(speed);
-        backLeft.setPower(speed);
-        frontRight.setPower(speed);
-        backRight.setPower(speed);
+        frontLeft.setPower(WHEEL_POWER);
+        backLeft.setPower(WHEEL_POWER);
+        frontRight.setPower(WHEEL_POWER);
+        backRight.setPower(WHEEL_POWER);
 
         while (opModeIsActive() && (backRight.isBusy() || backLeft.isBusy() || frontLeft.isBusy() || frontRight.isBusy()))
         {
