@@ -86,6 +86,7 @@ public class Auto extends LinearOpMode {
 
         sleep(5000);*/
         waitForStart();
+        t = new ElapsedTime();
         moveStraight(30,1);
         moveStraight(-30,0.1);
     }
