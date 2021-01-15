@@ -158,8 +158,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     lifter.setPower(0);
                 }
 
-
-
+                double lifter = (gamepad2.right_stick_y - 0.5) * 2;
 
                 //shooter
                 /*
