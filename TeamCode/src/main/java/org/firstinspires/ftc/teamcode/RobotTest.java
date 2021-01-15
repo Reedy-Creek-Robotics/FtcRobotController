@@ -4,8 +4,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
 @TeleOp(name = "RobotTest", group = "")
@@ -17,6 +20,7 @@ public class RobotTest extends LinearOpMode {
     public DcMotor backLeft;
     public DcMotor frontRight;
     public DcMotor backRight;
+    DistanceSensor distanceLeft;
     /*public Servo grabber;
     public DcMotor intake;
     public DcMotor shooter;
@@ -32,6 +36,7 @@ public class RobotTest extends LinearOpMode {
         backLeft = hardwareMap.dcMotor.get("backLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
+        distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
         /*grabber = hardwareMap.servo.get("grabber");
         intake = hardwareMap.dcMotor.get("intake");
         shooter = hardwareMap.dcMotor.get("shooter");
@@ -181,6 +186,7 @@ public class RobotTest extends LinearOpMode {
                 telemetry.addData("DPad Left - Grabber", grabber.getPosition()+",");
                 telemetry.addData("DPad Right - Lifter", lifter.getPower()+",");
                 telemetry.addData("Left Trigger - Loader", loader.getPosition()+",");*/
+                telemetry.addData("distanceLeft", distanceLeft.getDistance(DistanceUnit.CM));
                 telemetry.update();
             }
         }
