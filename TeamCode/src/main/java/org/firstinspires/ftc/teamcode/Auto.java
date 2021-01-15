@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -13,9 +14,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
+
 
 import java.util.List;
 
@@ -26,6 +30,7 @@ public class Auto extends LinearOpMode {
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber,rotator;
     DcMotor lifter;
+    DistanceSensor distanceLeft;
     ElapsedTime t;
     int numRings;
     double open, close;
@@ -46,6 +51,7 @@ public class Auto extends LinearOpMode {
         grabber = hardwareMap.servo.get("grabber");
         rotator = hardwareMap.servo.get("rotator");
         lifter = hardwareMap.dcMotor.get("lifter");
+        distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -166,7 +172,9 @@ public class Auto extends LinearOpMode {
             telemetry.addData("encoder-bck-right", backRight.getCurrentPosition() + " power= " + backRight.getPower() +  "  busy=" + backRight.isBusy());
             telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + " power= " + frontLeft.getPower() +  "  busy=" +frontLeft.isBusy());
             telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + " power= " + frontRight.getPower() +  "  busy=" + frontRight.isBusy());
+            telemetry.addData("distanceLeft", distanceLeft.getDistance(DistanceUnit.CM));
             telemetry.update();
+
         }
 
         frontLeft.setPower(0);
