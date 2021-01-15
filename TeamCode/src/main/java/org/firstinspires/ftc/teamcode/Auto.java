@@ -50,7 +50,7 @@ public class Auto extends LinearOpMode {
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        open = 0.17;
+        /*open = 0.17;
         close = 0.5;
         grabber.setPosition(close);
         ImageUtility iu = new ImageUtility();
@@ -84,7 +84,9 @@ public class Auto extends LinearOpMode {
         //moveStraight(-30);
 
 
-        sleep(5000);
+        sleep(5000);*/
+        moveStraight(30,1);
+        moveStraight(30,1);
     }
     public void MoveWobble() {
         if(numRings == 0){
