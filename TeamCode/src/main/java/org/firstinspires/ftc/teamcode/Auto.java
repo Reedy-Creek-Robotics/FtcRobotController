@@ -35,7 +35,7 @@ public class Auto extends LinearOpMode {
     public static double CORRECTION = 1.0;
     public static double ROTATION_CORRECTION = (62/90);
     //Ticks per revolution = 537.6(same for both)
-    //wheel size is 100mm and circumfrence ~31.415 cm(regular)
+    //wheel size is 100mm and circumference ~31.415 cm(regular)
     //wheel size is 96mm and circumference~30.15 cm(strafer chassis)
 
     public void runOpMode() {
@@ -85,8 +85,9 @@ public class Auto extends LinearOpMode {
 
 
         sleep(5000);*/
+        waitForStart();
         moveStraight(30,1);
-        moveStraight(30,0.1);
+        moveStraight(-30,0.1);
     }
     public void MoveWobble() {
         if(numRings == 0){
