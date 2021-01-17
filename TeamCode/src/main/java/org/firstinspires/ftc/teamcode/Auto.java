@@ -116,10 +116,10 @@ public class Auto extends LinearOpMode {
         }
     }
     public void moveWithDistance(double wantedDistanceX, double wantedDistanceY){
-        double currentdistanceX = distanceLeft.getDistance(DistanceUnit.CM);
-        double currentdistanceY = distanceBack.getDistance(DistanceUnit.CM);
-        double distanceX = wantedDistanceX - currentdistanceX;
-        double distanceY = wantedDistanceY - currentdistanceY;
+        double currentDistanceX = distanceLeft.getDistance(DistanceUnit.CM);
+        double currentDistanceY = distanceBack.getDistance(DistanceUnit.CM);
+        double distanceX = wantedDistanceX - currentDistanceX;
+        double distanceY = wantedDistanceY - currentDistanceY;
         strafeRight(distanceX, WHEEL_POWER);
         moveStraight(distanceY, WHEEL_POWER);
     }
