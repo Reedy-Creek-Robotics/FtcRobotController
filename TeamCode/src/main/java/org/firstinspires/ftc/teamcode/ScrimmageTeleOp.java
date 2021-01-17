@@ -64,6 +64,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
     private DcMotor intake;
     private DcMotor shooter;
     private Servo loader;
+    private DcMotor conveyor;
 
 
 
@@ -80,7 +81,9 @@ public class ScrimmageTeleOp extends LinearOpMode {
         grabber = hardwareMap.servo.get("grabber");
         rotator = hardwareMap.servo.get("rotator");
         lifter = hardwareMap.dcMotor.get("lifter");
-        //intake = hardwareMap.dcMotor.get("intake");
+        intake = hardwareMap.dcMotor.get("intake");
+        conveyor = hardwareMap.dcMotor.get("conveyor");
+
         //shooter = hardwareMap.dcMotor.get("shooter");
         //loader = hardwareMap.servo.get("loader");
 
@@ -187,22 +190,23 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
 
                 //intake
-                /*
+
                 if (gamepad2.b && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//intake = pressing b on controller 2(this will turn the intake on, press b again to turn it off)
                     if (intake.getPower() == 0){
-                        intake.setPower(0.75);
+                        intake.setPower(1);
+                        conveyor.setPower(1);
                         timeSinceLastPress.reset();
                     }
                     else {
+                        intake.setPower(0);
                         intake.setPower(0);
                         timeSinceLastPress.reset();
                     }
 
                 }
-                */
 
 
-                //intake.setPower(-gamepad2.left_stick_y);
+
 
 
                 telemetry.addData("change number", 1.1);
