@@ -21,11 +21,11 @@ public class RobotTest extends LinearOpMode {
     public DcMotor frontRight;
     public DcMotor backRight;
     DistanceSensor distanceLeft;
-    /*public Servo grabber;
+    public Servo grabber;
     public DcMotor intake;
     public DcMotor shooter;
     public DcMotor lifter;
-    public Servo loader;*/
+    public Servo loader;
 
     /**
      * This function is executed when this Op Mode is selected from the Driver Station.
@@ -37,11 +37,11 @@ public class RobotTest extends LinearOpMode {
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
         distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
-        /*grabber = hardwareMap.servo.get("grabber");
+        grabber = hardwareMap.servo.get("grabber");
         intake = hardwareMap.dcMotor.get("intake");
         shooter = hardwareMap.dcMotor.get("shooter");
         lifter = hardwareMap.dcMotor.get("lifter");
-        loader = hardwareMap.servo.get("loader");*/
+        loader = hardwareMap.servo.get("loader");
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -117,7 +117,7 @@ public class RobotTest extends LinearOpMode {
                     timeSinceLastPress.reset();
 
                 }
-                /*if (gamepad1.dpad_down && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
+                if (gamepad1.dpad_down && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
                     // Press DPad Downto turn it on and off.
                     if (shooter.getPower() > 0) {
                         shooter.setPower(0);
@@ -168,24 +168,24 @@ public class RobotTest extends LinearOpMode {
                     timeSinceLastPress.reset();
                 }
 
-                if (gamepad1.left_trigger && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
-                    // Press Left Trigger to turn it on and off.
+                if (gamepad1.left_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
+                    // Press Left Bumper to turn it on and off.
                     if (loader.getPosition() > 0) {
                        loader.setPosition(0);
                     } else {
                         loader.setPosition(0.25);
                     }
-                }*/
+                }
                 telemetry.addData("change number", 1.1);
                 telemetry.addData("A - Front Left", frontLeft.getPower()+","+frontLeft.getCurrentPosition());
                 telemetry.addData("B - Front Right", frontRight.getPower()+","+frontRight.getCurrentPosition());
                 telemetry.addData("X - Back Left", backLeft.getPower()+","+backLeft.getCurrentPosition());
                 telemetry.addData("Y - Back Right", backRight.getPower()+","+backRight.getCurrentPosition());
-                /*telemetry.addData("DPad Down - Shooter", shooter.getPower()+",");
+                telemetry.addData("DPad Down - Shooter", shooter.getPower()+",");
                 telemetry.addData("DPad Up - Intake", intake.getPower()+",");
                 telemetry.addData("DPad Left - Grabber", grabber.getPosition()+",");
                 telemetry.addData("DPad Right - Lifter", lifter.getPower()+",");
-                telemetry.addData("Left Trigger - Loader", loader.getPosition()+",");*/
+                telemetry.addData("Left Trigger - Loader", loader.getPosition()+",");
                 telemetry.addData("distanceLeft", distanceLeft.getDistance(DistanceUnit.CM));
                 telemetry.update();
             }
