@@ -26,13 +26,14 @@
             //dpad up
             //dpad down
 
+
         //Controller 2
-            //a
             //b
-            //x
             //y
-            //dpad up
-            //dpad down
+            //x
+            //left bumper
+            //right bumper
+
 
 
 package org.firstinspires.ftc.teamcode;
@@ -84,8 +85,8 @@ public class ScrimmageTeleOp extends LinearOpMode {
         intake = hardwareMap.dcMotor.get("intake");
         conveyor = hardwareMap.dcMotor.get("conveyor");
 
-        //shooter = hardwareMap.dcMotor.get("shooter");
-        //loader = hardwareMap.servo.get("loader");
+        shooter = hardwareMap.dcMotor.get("shooter");
+        loader = hardwareMap.servo.get("loader");
 
         boolean isBPressed = false;
         boolean isAPressed = false;
@@ -128,7 +129,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 }
 
                 //wobble
-                if (gamepad2.a && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//grabber = pressing a on controller 2(this will close the arm to open them press a again)
+                if (gamepad2.x && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//grabber = pressing x on controller 2(this will close the arm to open them press a again)
                     if (grabber.getPosition() <= 0.3){
                         grabber.setPosition(0.5);
                         timeSinceLastPress.reset();
@@ -139,7 +140,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     }
                 }
 
-                if (gamepad2.b && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//grabber = pressing a on controller 2(this will close the arm to open them press a again)
+                if (gamepad2.y && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//rotator = pressing y on controller 2(this will close the arm to open them press a again)
                     if (rotator.getPosition() != 1){
                         rotator.setPosition(1);
                         timeSinceLastPress.reset();
@@ -151,7 +152,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 }
 
                 // lifter
-                if (gamepad2.dpad_up){//press up on the dpad to raise the lifter and down to lower it (on controller 2)
+                /*if (gamepad2.dpad_up){//press up on the dpad to raise the lifter and down to lower it (on controller 2)
                     lifter.setPower(wheelsPowerFactor);
                 }
                 else if (gamepad2.dpad_down){
@@ -159,13 +160,13 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 }
                 else {
                     lifter.setPower(0);
-                }
+                }*/
 
                 double lifter = (gamepad2.right_stick_y - 0.5) * 2;
 
                 //shooter
-                /*
-                if (gamepad2.x && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//shooter = pressing x on controller 2(this will turn the shooter on, press x again to turn it off)
+
+                if (gamepad2.right_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//shooter = pressing right bumper on controller 2(this will turn the shooter on, press x again to turn it off)
                     if (shooter.getPower() == 0){
                         shooter.setPower(-1);
                         timeSinceLastPress.reset();
@@ -175,9 +176,9 @@ public class ScrimmageTeleOp extends LinearOpMode {
                         timeSinceLastPress.reset();
                     }
                 }
-                 */
-                /*
-                if (gamepad2.y && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//loader = pressing y on controller 2(this will push the ring, press y again to let another ring in)
+
+
+                if (gamepad2.left_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//loader = pressing bumper on controller 2(this will push the ring, press y again to let another ring in)
                     if (loader.getPosition() < 0.3) {
                         loader.setPosition(.5);
                     }
@@ -186,20 +187,20 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     }
                     timeSinceLastPress.reset();
                 }
-                */
+
 
 
                 //intake
 
                 if (gamepad2.b && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//intake = pressing b on controller 2(this will turn the intake on, press b again to turn it off)
                     if (intake.getPower() == 0){
-                        intake.setPower(1);
+                        intake.setPower(-1);
                         conveyor.setPower(1);
                         timeSinceLastPress.reset();
                     }
                     else {
                         intake.setPower(0);
-                        intake.setPower(0);
+                        conveyor.setPower(0);
                         timeSinceLastPress.reset();
                     }
 

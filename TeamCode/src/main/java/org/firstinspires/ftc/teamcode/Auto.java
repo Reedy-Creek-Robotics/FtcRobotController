@@ -29,7 +29,7 @@ public class Auto extends LinearOpMode {
 
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber,rotator;
-    DcMotor lifter;
+    DcMotor lifter, shooter;
     DistanceSensor distanceLeft, distanceBack;
     ElapsedTime t;
     int numRings;
@@ -51,6 +51,7 @@ public class Auto extends LinearOpMode {
         grabber = hardwareMap.servo.get("grabber");
         rotator = hardwareMap.servo.get("rotator");
         lifter = hardwareMap.dcMotor.get("lifter");
+        shooter = hardwareMap.dcMotor.get("shooter");
         distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
         distanceBack = hardwareMap.get(DistanceSensor.class,"distanceBack");
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -71,7 +72,9 @@ public class Auto extends LinearOpMode {
         numRings = iu.getRings();
         System.out.println("Number of Rings:" + numRings);
         MoveWobble();
-        //shoot
+        shooter.setPower(1);
+        sleep(0);//fill in time
+        shooter.setPower(0);
         strafeLeft(95, WHEEL_POWER);
         sleep(250);
         rotator.setPosition(1);
