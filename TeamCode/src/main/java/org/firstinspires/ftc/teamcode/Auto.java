@@ -74,7 +74,7 @@ public class Auto extends LinearOpMode {
         numRings = 0; //iu.getRings();
         System.out.println("Number of Rings:" + numRings);
         MoveWobble();
-        shooter.setPower(1);
+        /*shooter.setPower(1);
         sleep(0);//fill in time
         shooter.setPower(0);
         strafeLeft(95, WHEEL_POWER);
@@ -92,7 +92,7 @@ public class Auto extends LinearOpMode {
         grabber.setPosition(closeWobble);
         //strafeRight(100);
         sleep(200);
-        //moveStraight(-30);
+        //moveStraight(-30);*/
 
 
 
@@ -103,10 +103,9 @@ public class Auto extends LinearOpMode {
             moveStraight(75, WHEEL_POWER);
             strafeLeft(25, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
-            while(rotator.getPosition() != WOBBLE_OUT){
-
-            }
+            sleep(200);
             grabber.setPosition(openWobble);
+            sleep(200);
             strafeLeft(40, WHEEL_POWER);
             moveStraight(-30, WHEEL_POWER);
 
@@ -116,10 +115,9 @@ public class Auto extends LinearOpMode {
             sleep(250);
             strafeLeft(85, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
-            while(rotator.getPosition() != WOBBLE_OUT){
-
-            }
+            sleep(200);
             grabber.setPosition(openWobble);
+            sleep(200);
             strafeRight(25, WHEEL_POWER);
             moveStraight(-100, WHEEL_POWER);
         }
@@ -127,10 +125,9 @@ public class Auto extends LinearOpMode {
             moveStraight(200, WHEEL_POWER);
             strafeLeft(25, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
-            while(rotator.getPosition() != WOBBLE_OUT){
-
-            }
+            sleep(200);
             grabber.setPosition(openWobble);
+            sleep(200);
             strafeLeft(40, WHEEL_POWER);
             moveStraight(-153, WHEEL_POWER);
         }
