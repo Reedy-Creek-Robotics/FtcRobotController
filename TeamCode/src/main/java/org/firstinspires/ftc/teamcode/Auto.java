@@ -29,16 +29,18 @@ public class Auto extends LinearOpMode {
 
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber,rotator;
-    DcMotor lifter;
+    DcMotor lifter, shooter;
     DistanceSensor distanceLeft, distanceBack;
     ElapsedTime t;
     int numRings;
-    double open, close;
+    double openWobble, closeWobble;
     //public static double TICKS_PER_CM = 17.1; // 17.112 tics/cm traveled(regular)
     public static double TICKS_PER_CM = 17.112; // 17.83 tics/cm traveled(Strafer)
     public static double WHEEL_POWER = 0.6;
     public static double CORRECTION = 1.0;
     public static double ROTATION_CORRECTION = (62/90);
+    public static double WOBBLE_OUT = 0;
+    public static double WOBBLE_IN = 1;
     //Ticks per revolution = 537.6(same for both)
     //wheel size is 100mm and circumference ~31.415 cm(regular)
     //wheel size is 96mm and circumference~30.15 cm(strafer chassis)
@@ -51,15 +53,16 @@ public class Auto extends LinearOpMode {
         grabber = hardwareMap.servo.get("grabber");
         rotator = hardwareMap.servo.get("rotator");
         lifter = hardwareMap.dcMotor.get("lifter");
+        shooter = hardwareMap.dcMotor.get("shooter");
         distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
         distanceBack = hardwareMap.get(DistanceSensor.class,"distanceBack");
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        open = 0.17;
-        close = 0.5;
-        grabber.setPosition(close);
+        openWobble = 0.17;
+        closeWobble = 0.5;
+        grabber.setPosition(closeWobble);
         ImageUtility iu = new ImageUtility();
         iu.init(telemetry, hardwareMap);
 
@@ -68,24 +71,25 @@ public class Auto extends LinearOpMode {
 
         moveStraight(100, WHEEL_POWER);
         sleep(500);
-        numRings = iu.getRings();
+        numRings = 0; //iu.getRings();
         System.out.println("Number of Rings:" + numRings);
         MoveWobble();
-        //shoot
+        shooter.setPower(1);
+        sleep(0);//fill in time
+        shooter.setPower(0);
         strafeLeft(95, WHEEL_POWER);
         sleep(250);
-        rotator.setPosition(1);
 
         moveStraight(-91, WHEEL_POWER);
         strafeRight(5, WHEEL_POWER);
-        grabber.setPosition(close);
+        grabber.setPosition(closeWobble);
         //strafeRight(100);
         moveStraight(-30, WHEEL_POWER);
 
         moveStraight(-132, WHEEL_POWER);
         moveStraight(51, WHEEL_POWER);
         strafeRight(20, WHEEL_POWER);
-        grabber.setPosition(close);
+        grabber.setPosition(closeWobble);
         //strafeRight(100);
         sleep(200);
         //moveStraight(-30);
@@ -97,22 +101,29 @@ public class Auto extends LinearOpMode {
     public void MoveWobble() {
         if(numRings == 0){
             moveStraight(75, WHEEL_POWER);
-            grabber.setPosition(open);
+            strafeLeft(25, WHEEL_POWER);
+            rotator.setPosition(WOBBLE_OUT);
+            grabber.setPosition(openWobble);
+            strafeLeft(40, WHEEL_POWER);
             moveStraight(-30, WHEEL_POWER);
-            strafeLeft(65, WHEEL_POWER);
+
         }
         else if(numRings == 1){
             moveStraight(140, WHEEL_POWER);
             sleep(250);
-            strafeLeft(65, WHEEL_POWER);
-            grabber.setPosition(open);
+            strafeLeft(85, WHEEL_POWER);
+            rotator.setPosition(WOBBLE_OUT);
+            grabber.setPosition(openWobble);
+            strafeRight(25, WHEEL_POWER);
             moveStraight(-100, WHEEL_POWER);
         }
         else if(numRings == 4){
             moveStraight(200, WHEEL_POWER);
-            grabber.setPosition(open);
+            strafeLeft(25, WHEEL_POWER);
+            rotator.setPosition(WOBBLE_OUT);
+            grabber.setPosition(openWobble);
+            strafeLeft(40, WHEEL_POWER);
             moveStraight(-153, WHEEL_POWER);
-            strafeLeft(65, WHEEL_POWER);
         }
     }
     public void moveWithDistance(double wantedDistanceX, double wantedDistanceY){

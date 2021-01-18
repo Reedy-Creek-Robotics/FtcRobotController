@@ -92,7 +92,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
         ElapsedTime timeSinceLastPress = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         waitForStart();
         grabber.setPosition(0.5);
-        rotator.setPosition(1);
+        rotator.setPosition(0);
 
         if (opModeIsActive()) {
             double wheelsPowerFactor = 0.6;
@@ -139,15 +139,15 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     }
                 }
 
-                // rotator
                 if (gamepad2.b && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//grabber = pressing a on controller 2(this will close the arm to open them press a again)
-                    if (rotator.getPosition() != 0){
-                        rotator.setPosition(0);
-                     }
-                    else {
+                    if (rotator.getPosition() != 1){
                         rotator.setPosition(1);
+                        timeSinceLastPress.reset();
                     }
-                    timeSinceLastPress.reset();
+                    else {
+                        rotator.setPosition(0);
+                        timeSinceLastPress.reset();
+                    }
                 }
 
                 // lifter
@@ -161,7 +161,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     lifter.setPower(0);
                 }
 
-                //double lifter = (gamepad2.right_stick_y - 0.2) * 2;
+                double lifter = (gamepad2.right_stick_y - 0.5) * 2;
 
                 //shooter
                 /*
@@ -209,7 +209,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
 
 
-                telemetry.addData("change number", "Wyatt: " + 1.12);
+                telemetry.addData("change number", 1.1);
                 telemetry.addData("Drive Power:", drive);
                 telemetry.addData("Wheel power factor:", df2.format(wheelsPowerFactor));
                 //telemetry.addData("Intake power factor:", df2.format(intake.getPower()));
