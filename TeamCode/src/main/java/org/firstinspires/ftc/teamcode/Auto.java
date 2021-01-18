@@ -103,6 +103,9 @@ public class Auto extends LinearOpMode {
             moveStraight(75, WHEEL_POWER);
             strafeLeft(25, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
+            while(rotator.getPosition() != WOBBLE_OUT){
+
+            }
             grabber.setPosition(openWobble);
             strafeLeft(40, WHEEL_POWER);
             moveStraight(-30, WHEEL_POWER);
@@ -113,6 +116,9 @@ public class Auto extends LinearOpMode {
             sleep(250);
             strafeLeft(85, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
+            while(rotator.getPosition() != WOBBLE_OUT){
+
+            }
             grabber.setPosition(openWobble);
             strafeRight(25, WHEEL_POWER);
             moveStraight(-100, WHEEL_POWER);
@@ -121,6 +127,9 @@ public class Auto extends LinearOpMode {
             moveStraight(200, WHEEL_POWER);
             strafeLeft(25, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
+            while(rotator.getPosition() != WOBBLE_OUT){
+
+            }
             grabber.setPosition(openWobble);
             strafeLeft(40, WHEEL_POWER);
             moveStraight(-153, WHEEL_POWER);
