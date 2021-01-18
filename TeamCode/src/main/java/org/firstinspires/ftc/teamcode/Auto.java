@@ -71,7 +71,7 @@ public class Auto extends LinearOpMode {
 
         moveStraight(100, WHEEL_POWER);
         sleep(500);
-        numRings = 0; //iu.getRings();
+        numRings = 4; //iu.getRings();
         System.out.println("Number of Rings:" + numRings);
         MoveWobble();
         /*shooter.setPower(1);
@@ -103,31 +103,31 @@ public class Auto extends LinearOpMode {
             moveStraight(75, WHEEL_POWER);
             strafeLeft(25, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
-            sleep(200);
+            sleep(1000);
             grabber.setPosition(openWobble);
-            sleep(200);
+            sleep(1000);
             strafeLeft(40, WHEEL_POWER);
-            moveStraight(-30, WHEEL_POWER);
+            moveStraight(-45, WHEEL_POWER);
 
         }
         else if(numRings == 1){
             moveStraight(140, WHEEL_POWER);
             sleep(250);
-            strafeLeft(85, WHEEL_POWER);
+            strafeLeft(100, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
-            sleep(200);
+            sleep(1000);
             grabber.setPosition(openWobble);
-            sleep(200);
-            strafeRight(25, WHEEL_POWER);
+            sleep(100);
             moveStraight(-100, WHEEL_POWER);
+            strafeRight(35, WHEEL_POWER);
         }
         else if(numRings == 4){
             moveStraight(200, WHEEL_POWER);
             strafeLeft(25, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
-            sleep(200);
+            sleep(1000);
             grabber.setPosition(openWobble);
-            sleep(200);
+            sleep(1000);
             strafeLeft(40, WHEEL_POWER);
             moveStraight(-153, WHEEL_POWER);
         }
