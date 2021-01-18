@@ -30,7 +30,7 @@ public class Auto extends LinearOpMode {
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber,rotator;
     DcMotor lifter;
-    DistanceSensor distanceLeft;
+    DistanceSensor distanceLeft, distanceBack;
     ElapsedTime t;
     int numRings;
     double open, close;
@@ -52,6 +52,7 @@ public class Auto extends LinearOpMode {
         rotator = hardwareMap.servo.get("rotator");
         lifter = hardwareMap.dcMotor.get("lifter");
         distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
+        distanceBack = hardwareMap.get(DistanceSensor.class,"distanceBack");
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -90,6 +91,7 @@ public class Auto extends LinearOpMode {
         //moveStraight(-30);
 
 
+
         sleep(5000);
     }
     public void MoveWobble() {
@@ -113,6 +115,15 @@ public class Auto extends LinearOpMode {
             strafeLeft(65, WHEEL_POWER);
         }
     }
+    public void moveWithDistance(double wantedDistanceX, double wantedDistanceY){
+        double currentDistanceX = distanceLeft.getDistance(DistanceUnit.CM);
+        double currentDistanceY = distanceBack.getDistance(DistanceUnit.CM);
+        double distanceX = wantedDistanceX - currentDistanceX;
+        double distanceY = wantedDistanceY - currentDistanceY;
+        strafeRight(distanceX, WHEEL_POWER);
+        moveStraight(distanceY, WHEEL_POWER);
+    }
+    
     public void moveStraight(double distance, double speed) {
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION)); //ticks
         frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION));
@@ -185,6 +196,7 @@ public class Auto extends LinearOpMode {
 
 
     }
+
 }
 
 
