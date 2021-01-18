@@ -185,7 +185,7 @@ public class RobotTest extends LinearOpMode {
                 telemetry.addData("DPad Up - Intake", intake.getPower()+",");
                 telemetry.addData("DPad Left - Grabber", grabber.getPosition()+",");
                 telemetry.addData("DPad Right - Lifter", lifter.getPower()+",");
-                telemetry.addData("Left Trigger - Loader", loader.getPosition()+",");
+                telemetry.addData("Left Bumper - Loader", loader.getPosition()+",");
                 telemetry.addData("distanceLeft", distanceLeft.getDistance(DistanceUnit.CM));
                 telemetry.update();
             }
