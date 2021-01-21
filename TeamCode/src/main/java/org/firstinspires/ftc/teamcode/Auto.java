@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.RobotLog;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -71,28 +72,30 @@ public class Auto extends LinearOpMode {
 
         moveStraight(100, WHEEL_POWER);
         sleep(500);
-        numRings = 4; //iu.getRings();
-        System.out.println("Number of Rings:" + numRings);
+        numRings = iu.getRings(); //iu.getRings();
+        log("Number of Rings:", numRings);
         MoveWobble();
-        /*shooter.setPower(1);
-        sleep(0);//fill in time
-        shooter.setPower(0);
-        strafeLeft(95, WHEEL_POWER);
+        //shooter.setPower(1);
+        //sleep(0);//fill in time
+        //shooter.setPower(0);
+        //strafeLeft(95, WHEEL_POWER);
+
+        moveWithDistance(54, 0);
         sleep(250);
 
         moveStraight(-91, WHEEL_POWER);
         strafeRight(5, WHEEL_POWER);
         grabber.setPosition(closeWobble);
         //strafeRight(100);
-        moveStraight(-30, WHEEL_POWER);
+        /*moveStraight(-30, WHEEL_POWER);
 
         moveStraight(-132, WHEEL_POWER);
         moveStraight(51, WHEEL_POWER);
         strafeRight(20, WHEEL_POWER);
         grabber.setPosition(closeWobble);
         //strafeRight(100);
-        sleep(200);
-        //moveStraight(-30);*/
+        sleep(200);*/
+        //moveStraight(-30);
 
 
 
@@ -101,6 +104,7 @@ public class Auto extends LinearOpMode {
     public void MoveWobble() {
         if(numRings == 0){
             moveStraight(75, WHEEL_POWER);
+            log("Move Wobble:", true);
             strafeLeft(25, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
             sleep(1000);
@@ -134,11 +138,15 @@ public class Auto extends LinearOpMode {
     }
     public void moveWithDistance(double wantedDistanceX, double wantedDistanceY){
         double currentDistanceX = distanceLeft.getDistance(DistanceUnit.CM);
-        double currentDistanceY = distanceBack.getDistance(DistanceUnit.CM);
-        double distanceX = wantedDistanceX - currentDistanceX;
-        double distanceY = wantedDistanceY - currentDistanceY;
-        strafeRight(distanceX, WHEEL_POWER);
-        moveStraight(distanceY, WHEEL_POWER);
+        log("Before Move Distance", currentDistanceX);
+        telemetry.update();
+        //double currentDistanceY = distanceBack.getDistance(DistanceUnit.CM);
+        double distanceX = currentDistanceX - wantedDistanceX;
+        //double distanceY = wantedDistanceY - currentDistanceY;
+        strafeLeft(distanceX, WHEEL_POWER);
+        log("After Move Distance",  distanceLeft.getDistance(DistanceUnit.CM));
+        telemetry.update();
+        //moveStraight(distanceY, WHEEL_POWER);
     }
     
     public void moveStraight(double distance, double speed) {
@@ -195,13 +203,14 @@ public class Auto extends LinearOpMode {
 
         while (opModeIsActive() && (backRight.isBusy() || backLeft.isBusy() || frontLeft.isBusy() || frontRight.isBusy()))
         {
-            telemetry.addData("Time", t.seconds());
+            /*telemetry.addData("Time", t.seconds());
             telemetry.addData("encoder-bck-left", backLeft.getCurrentPosition() + " power= " + backLeft.getPower() +  "  busy=" + backLeft.isBusy());
             telemetry.addData("encoder-bck-right", backRight.getCurrentPosition() + " power= " + backRight.getPower() +  "  busy=" + backRight.isBusy());
             telemetry.addData("encoder-fwd-left", frontLeft.getCurrentPosition() + " power= " + frontLeft.getPower() +  "  busy=" +frontLeft.isBusy());
             telemetry.addData("encoder-fwd-right", frontRight.getCurrentPosition() + " power= " + frontRight.getPower() +  "  busy=" + frontRight.isBusy());
             telemetry.addData("distanceLeft", distanceLeft.getDistance(DistanceUnit.CM));
-            telemetry.update();
+
+            telemetry.update();*/
 
         }
 
@@ -214,6 +223,10 @@ public class Auto extends LinearOpMode {
 
     }
 
+    protected void log(String caption, Object value) {
+        telemetry.addData(caption, value);
+        RobotLog.a("[BBTC] " + caption + ": " + value);
+    }
 }
 
 
