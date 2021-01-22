@@ -83,7 +83,7 @@ public class Auto extends LinearOpMode {
         //sleep(0);//fill in time
         //shooter.setPower(0);
         //strafeLeft(95, WHEEL_POWER);
-
+        sleep(1000);
         moveWithDistance(54, 0);
         sleep(250);
 
@@ -164,17 +164,17 @@ public class Auto extends LinearOpMode {
     }
 
     public void strafeLeft(double distance, double speed) {
-        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM)); //ticks
-        frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM));
-        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
+        backLeft.setTargetPosition((int) (distance * TICKS_PER_CM * 1.10)); //ticks
+        frontLeft.setTargetPosition((int) (-distance * TICKS_PER_CM * 1.10));
+        frontRight.setTargetPosition((int) (distance * TICKS_PER_CM * 1.10));
+        backRight.setTargetPosition((int) (-distance * TICKS_PER_CM * 1.10));
         move();
     }
     public void strafeRight(double distance, double speed) {
-        backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM)); //ticks
-        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM));
-        frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM));
-        backRight.setTargetPosition((int) (distance * TICKS_PER_CM));
+        backLeft.setTargetPosition((int) (-distance * TICKS_PER_CM * 1.10)); //ticks
+        frontLeft.setTargetPosition((int) (distance * TICKS_PER_CM * 1.10));
+        frontRight.setTargetPosition((int) (-distance * TICKS_PER_CM * 1.10));
+        backRight.setTargetPosition((int) (distance * TICKS_PER_CM * 1.10));
         move();
     }
     public void turnLeft(double distance, double speed) {
