@@ -47,7 +47,11 @@ public class Auto extends LinearOpMode {
     //wheel size is 96mm and circumference~30.15 cm(strafer chassis)
 
     public void runOpMode() {
-        backLeft = hardwareMap.dcMotor.get("backLeft");
+        double x = 1;
+        while (x == 1){
+            telemetry.addData("distanceLeft", distanceLeft.getDistance(DistanceUnit.CM));
+        }
+        /*backLeft = hardwareMap.dcMotor.get("backLeft");
         frontLeft = hardwareMap.dcMotor.get("frontLeft");
         frontRight = hardwareMap.dcMotor.get("frontRight");
         backRight = hardwareMap.dcMotor.get("backRight");
@@ -87,7 +91,7 @@ public class Auto extends LinearOpMode {
         strafeRight(5, WHEEL_POWER);
         grabber.setPosition(closeWobble);
         //strafeRight(100);
-        /*moveStraight(-30, WHEEL_POWER);
+        moveStraight(-30, WHEEL_POWER);
 
         moveStraight(-132, WHEEL_POWER);
         moveStraight(51, WHEEL_POWER);
