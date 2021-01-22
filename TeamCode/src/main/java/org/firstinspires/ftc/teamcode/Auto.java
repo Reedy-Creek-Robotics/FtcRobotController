@@ -143,6 +143,8 @@ public class Auto extends LinearOpMode {
         //double currentDistanceY = distanceBack.getDistance(DistanceUnit.CM);
         double distanceX = currentDistanceX - wantedDistanceX;
         //double distanceY = wantedDistanceY - currentDistanceY;
+        log("Strafe Distance", distanceX);
+        telemetry.update();
         strafeLeft(distanceX, WHEEL_POWER);
         log("After Move Distance",  distanceLeft.getDistance(DistanceUnit.CM));
         telemetry.update();
