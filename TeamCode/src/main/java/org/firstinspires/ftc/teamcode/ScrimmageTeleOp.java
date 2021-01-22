@@ -83,8 +83,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
         lifter = hardwareMap.dcMotor.get("lifter");
         intake = hardwareMap.dcMotor.get("intake");
         conveyor = hardwareMap.dcMotor.get("conveyor");
-
-        //shooter = hardwareMap.dcMotor.get("shooter");
+        shooter = hardwareMap.dcMotor.get("shooter");
         //loader = hardwareMap.servo.get("loader");
 
         boolean isBPressed = false;
@@ -92,7 +91,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
         ElapsedTime timeSinceLastPress = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         waitForStart();
         grabber.setPosition(0.5);
-        rotator.setPosition(0);
+        rotator.setPosition(1);
 
         if (opModeIsActive()) {
             double wheelsPowerFactor = 0.6;
@@ -103,11 +102,13 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 double drive = -gamepad1.left_stick_y * wheelsPowerFactor;//vertical movement = the left stick on controller one(moving on the y-axis)
                 double strafe = -(gamepad1.left_stick_x * wheelsPowerFactor);//Strafing = the left stick on controller 1(moving on the x-axis)
                 double rotate = gamepad1.right_stick_x * wheelsPowerFactor;//Rotating = the right stick on controller 1(moving on the x-axis)
+                double lift = gamepad2.left_stick_y;
                 telemetry.addData("Rotate Value", gamepad1.right_stick_x * wheelsPowerFactor);
                 frontLeft.setPower(drive - (strafe - rotate));
                 backLeft.setPower(drive + strafe + rotate);
                 frontRight.setPower(-(drive + (strafe - rotate)));
                 backRight.setPower(-(drive - (strafe + rotate)));
+                lifter.setPower(lift);
 
                 //double v = ((-1.0f/2.0f)*gamepad2.left_stick_y)+(1.0f/2.0f);
                 //loader.setPosition(v);
@@ -164,10 +165,9 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 double lifter = (gamepad2.right_stick_y - 0.5) * 2;
 
                 //shooter
-                /*
                 if (gamepad2.x && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//shooter = pressing x on controller 2(this will turn the shooter on, press x again to turn it off)
                     if (shooter.getPower() == 0){
-                        shooter.setPower(-1);
+                        shooter.setPower(1);
                         timeSinceLastPress.reset();
                     }
                     else {
@@ -175,7 +175,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                         timeSinceLastPress.reset();
                     }
                 }
-                 */
+
                 /*
                 if (gamepad2.y && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//loader = pressing y on controller 2(this will push the ring, press y again to let another ring in)
                     if (loader.getPosition() < 0.3) {
@@ -191,7 +191,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
                 //intake
 
-                if (gamepad2.b && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//intake = pressing b on controller 2(this will turn the intake on, press b again to turn it off)
+                if (gamepad2.right_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//intake = pressing b on controller 2(this will turn the intake on, press b again to turn it off)
                     if (intake.getPower() == 0){
                         intake.setPower(1);
                         conveyor.setPower(1);
@@ -200,6 +200,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     else {
                         intake.setPower(0);
                         intake.setPower(0);
+                        conveyor.setPower(0);
                         timeSinceLastPress.reset();
                     }
 

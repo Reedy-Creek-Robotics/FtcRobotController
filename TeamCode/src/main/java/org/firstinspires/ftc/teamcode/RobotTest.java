@@ -25,7 +25,7 @@ public class RobotTest extends LinearOpMode {
     public DcMotor intake;
     public DcMotor shooter;
     public DcMotor lifter;
-    public Servo loader;
+    //public Servo loader;
 
     /**
      * This function is executed when this Op Mode is selected from the Driver Station.
@@ -41,7 +41,7 @@ public class RobotTest extends LinearOpMode {
         intake = hardwareMap.dcMotor.get("intake");
         shooter = hardwareMap.dcMotor.get("shooter");
         lifter = hardwareMap.dcMotor.get("lifter");
-        loader = hardwareMap.servo.get("loader");
+        //loader = hardwareMap.servo.get("loader");
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         frontRight.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -168,14 +168,14 @@ public class RobotTest extends LinearOpMode {
                     timeSinceLastPress.reset();
                 }
 
-                if (gamepad1.left_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
+                /*if (gamepad1.left_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
                     // Press Left Bumper to turn it on and off.
                     if (loader.getPosition() > 0) {
                        loader.setPosition(0);
                     } else {
                         loader.setPosition(0.25);
                     }
-                }
+                }*/
                 telemetry.addData("change number", 1.1);
                 telemetry.addData("A - Front Left", frontLeft.getPower()+","+frontLeft.getCurrentPosition());
                 telemetry.addData("B - Front Right", frontRight.getPower()+","+frontRight.getCurrentPosition());
@@ -185,7 +185,7 @@ public class RobotTest extends LinearOpMode {
                 telemetry.addData("DPad Up - Intake", intake.getPower()+",");
                 telemetry.addData("DPad Left - Grabber", grabber.getPosition()+",");
                 telemetry.addData("DPad Right - Lifter", lifter.getPower()+",");
-                telemetry.addData("Left Bumper - Loader", loader.getPosition()+",");
+                //telemetry.addData("Left Bumper - Loader", loader.getPosition()+",");
                 telemetry.addData("distanceLeft", distanceLeft.getDistance(DistanceUnit.CM));
                 telemetry.update();
             }
