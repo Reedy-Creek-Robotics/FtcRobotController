@@ -95,7 +95,10 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
         if (opModeIsActive()) {
             double wheelsPowerFactor = 0.6;
+            double shooterPowerFactor = 0.8;
             timeSinceLastPress.reset();
+
+
 
             while (opModeIsActive()) {
                 //Drivetrain
@@ -151,30 +154,26 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     }
                 }
 
-                // lifter
-                if (gamepad2.dpad_up){//press up on the dpad to raise the lifter and down to lower it (on controller 2)
-                    lifter.setPower(wheelsPowerFactor);
+                // shooter
+                if (gamepad2.dpad_up && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//press up on the dpad to raise the power by 0.1 and down to lower it by 0.1 (on controller 1, default power=0.6)
+                    if (shooterPowerFactor < 1) {
+                        shooterPowerFactor += 0.1;
+                        timeSinceLastPress.reset();
+                    }
+                    shooter.setPower(shooterPowerFactor);
                 }
-                else if (gamepad2.dpad_down){
-                    lifter.setPower(-wheelsPowerFactor);
+
+                if (gamepad2.dpad_down && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){
+                    if (shooterPowerFactor > 0)
+                        shooterPowerFactor -= 0.1;
+                    timeSinceLastPress.reset();
+                    shooter.setPower(shooterPowerFactor);
                 }
-                else {
-                    lifter.setPower(0);
-                }
+
 
                 double lifter = (gamepad2.right_stick_y - 0.5) * 2;
 
                 //shooter
-                if (gamepad2.x && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//shooter = pressing x on controller 2(this will turn the shooter on, press x again to turn it off)
-                    if (shooter.getPower() == 0){
-                        shooter.setPower(1);
-                        timeSinceLastPress.reset();
-                    }
-                    else {
-                        shooter.setPower(0);
-                        timeSinceLastPress.reset();
-                    }
-                }
 
                 /*
                 if (gamepad2.y && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//loader = pressing y on controller 2(this will push the ring, press y again to let another ring in)
@@ -213,6 +212,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 telemetry.addData("change number", 1.1);
                 telemetry.addData("Drive Power:", drive);
                 telemetry.addData("Wheel power factor:", df2.format(wheelsPowerFactor));
+                telemetry.addData("Shooter power factor:",  df2.format(shooterPowerFactor));
                 //telemetry.addData("Intake power factor:", df2.format(intake.getPower()));
                 telemetry.update();
             }
