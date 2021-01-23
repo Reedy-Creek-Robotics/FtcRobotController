@@ -92,6 +92,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
         waitForStart();
         grabber.setPosition(0.5);
         rotator.setPosition(1);
+        loader.setPosition(0);
 
         if (opModeIsActive()) {
             double wheelsPowerFactor = 0.6;
@@ -175,17 +176,17 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
                 //shooter
 
-                /*
-                if (gamepad2.y && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//loader = pressing y on controller 2(this will push the ring, press y again to let another ring in)
-                    if (loader.getPosition() < 0.3) {
-                        loader.setPosition(.5);
+
+                if (gamepad1.right_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//loader = pressing y on controller 2(this will push the ring, press y again to let another ring in)
+                    if (loader.getPosition() == 0) {
+                        loader.setPosition(1);
                     }
                     else {
-                        loader.setPosition(0.2);
+                        loader.setPosition(0);
                     }
                     timeSinceLastPress.reset();
                 }
-                */
+
 
 
                 //intake
