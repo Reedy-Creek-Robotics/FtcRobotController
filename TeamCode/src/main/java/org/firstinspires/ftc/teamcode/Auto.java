@@ -70,10 +70,7 @@ public class Auto extends LinearOpMode {
 
         waitForStart();
 
-        while (opModeIsActive()){
-            telemetry.addData("distanceLeft", distanceLeft.getDistance(DistanceUnit.CM));
-        }
-        /*t = new ElapsedTime();
+        t = new ElapsedTime();
 
         moveStraight(100, WHEEL_POWER);
         sleep(500);
@@ -83,9 +80,8 @@ public class Auto extends LinearOpMode {
         //shooter.setPower(1);
         //sleep(0);//fill in time
         //shooter.setPower(0);
-        //strafeLeft(95, WHEEL_POWER);
-        sleep(1000);
-        moveWithDistance(54, 0);
+        strafeLeft(70, WHEEL_POWER);
+
         sleep(250);
 
         moveStraight(-91, WHEEL_POWER);
@@ -94,13 +90,13 @@ public class Auto extends LinearOpMode {
         //strafeRight(100);
         moveStraight(-30, WHEEL_POWER);
 
-        moveStraight(-132, WHEEL_POWER);
+        /*moveStraight(-132, WHEEL_POWER);
         moveStraight(51, WHEEL_POWER);
         strafeRight(20, WHEEL_POWER);
         grabber.setPosition(closeWobble);
         //strafeRight(100);
-        sleep(200);*/
-        //moveStraight(-30);
+        sleep(200);
+        //moveStraight(-30);*/
 
 
 
