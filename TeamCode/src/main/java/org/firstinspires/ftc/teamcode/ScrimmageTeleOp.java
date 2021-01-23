@@ -65,6 +65,8 @@ public class ScrimmageTeleOp extends LinearOpMode {
     private DcMotor shooter;
     private Servo loader;
     private DcMotor conveyor;
+    public static double FORWARD = 0.5;
+    public static double BACK = 0.8;
 
 
 
@@ -84,15 +86,15 @@ public class ScrimmageTeleOp extends LinearOpMode {
         intake = hardwareMap.dcMotor.get("intake");
         conveyor = hardwareMap.dcMotor.get("conveyor");
         shooter = hardwareMap.dcMotor.get("shooter");
-        //loader = hardwareMap.servo.get("loader");
+        loader = hardwareMap.servo.get("loader");
 
         boolean isBPressed = false;
         boolean isAPressed = false;
         ElapsedTime timeSinceLastPress = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         waitForStart();
         grabber.setPosition(0.5);
-        rotator.setPosition(1);
-        loader.setPosition(0);
+        rotator.setPosition(0);
+        loader.setPosition(BACK);
 
         if (opModeIsActive()) {
             double wheelsPowerFactor = 0.6;
@@ -178,11 +180,11 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
 
                 if (gamepad1.right_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//loader = pressing y on controller 2(this will push the ring, press y again to let another ring in)
-                    if (loader.getPosition() == 0) {
-                        loader.setPosition(1);
+                    if (loader.getPosition() == BACK) {
+                        loader.setPosition(FORWARD);
                     }
                     else {
-                        loader.setPosition(0);
+                        loader.setPosition(BACK);
                     }
                     timeSinceLastPress.reset();
                 }
