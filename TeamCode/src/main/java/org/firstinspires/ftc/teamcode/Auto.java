@@ -84,8 +84,8 @@ public class Auto extends LinearOpMode {
 
         sleep(250);
 
-        moveStraight(-91, WHEEL_POWER);
-        strafeRight(5, WHEEL_POWER);
+        moveStraight(-108, WHEEL_POWER);
+        strafeRight(15, WHEEL_POWER);
         grabber.setPosition(closeWobble);
         //strafeRight(100);
         moveStraight(-30, WHEEL_POWER);
@@ -108,9 +108,9 @@ public class Auto extends LinearOpMode {
             log("Move Wobble:", true);
             strafeLeft(25, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
-            sleep(1000);
+            sleep(2000);
             grabber.setPosition(openWobble);
-            sleep(1000);
+            sleep(500);
             strafeLeft(40, WHEEL_POWER);
             moveStraight(-45, WHEEL_POWER);
 
@@ -130,9 +130,9 @@ public class Auto extends LinearOpMode {
             moveStraight(200, WHEEL_POWER);
             strafeLeft(25, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
-            sleep(1000);
+                sleep(1000);
             grabber.setPosition(openWobble);
-            sleep(1000);
+            sleep(500);
             strafeLeft(40, WHEEL_POWER);
             moveStraight(-153, WHEEL_POWER);
         }
