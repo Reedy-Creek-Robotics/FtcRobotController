@@ -31,7 +31,7 @@ public class Auto extends LinearOpMode {
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber,rotator;
     DcMotor lifter, shooter;
-    DistanceSensor distanceLeft, distanceBack;
+    //DistanceSensor distanceLeft, distanceBack;
     ElapsedTime t;
     int numRings;
     double openWobble, closeWobble;
@@ -40,8 +40,8 @@ public class Auto extends LinearOpMode {
     public static double WHEEL_POWER = 0.6;
     public static double CORRECTION = 1.0;
     public static double ROTATION_CORRECTION = (62/90);
-    public static double WOBBLE_OUT = 1;
-    public static double WOBBLE_IN = 0;
+    public static double WOBBLE_OUT = 0;
+    public static double WOBBLE_IN = 1;
     //Ticks per revolution = 537.6(same for both)
     //wheel size is 100mm and circumference ~31.415 cm(regular)
     //wheel size is 96mm and circumference~30.15 cm(strafer chassis)
@@ -56,8 +56,8 @@ public class Auto extends LinearOpMode {
         rotator = hardwareMap.servo.get("rotator");
         lifter = hardwareMap.dcMotor.get("lifter");
         shooter = hardwareMap.dcMotor.get("shooter");
-        distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
-        distanceBack = hardwareMap.get(DistanceSensor.class,"distanceBack");
+        //distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
+        //distanceBack = hardwareMap.get(DistanceSensor.class,"distanceBack");
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -137,7 +137,7 @@ public class Auto extends LinearOpMode {
             moveStraight(-153, WHEEL_POWER);
         }
     }
-    public void moveWithDistance(double wantedDistanceX, double wantedDistanceY){
+    /*public void moveWithDistance(double wantedDistanceX, double wantedDistanceY){
         double currentDistanceX = distanceLeft.getDistance(DistanceUnit.CM);
         log("Before Move Distance", currentDistanceX);
         telemetry.update();
@@ -150,7 +150,7 @@ public class Auto extends LinearOpMode {
         log("After Move Distance",  distanceLeft.getDistance(DistanceUnit.CM));
         telemetry.update();
         //moveStraight(distanceY, WHEEL_POWER);
-    }
+    }*/
     
     public void moveStraight(double distance, double speed) {
         backLeft.setTargetPosition((int) (distance * TICKS_PER_CM * CORRECTION)); //ticks

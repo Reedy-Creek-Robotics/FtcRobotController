@@ -67,8 +67,8 @@ public class ScrimmageTeleOp extends LinearOpMode {
     private DcMotor conveyor;
     public static double FORWARD = 0.5;
     public static double BACK = 0.8;
-    public static double WOBBLE_OUT = 1;
-    public static double WOBBLE_IN = 0;
+    public static double WOBBLE_OUT = 0;
+    public static double WOBBLE_IN = 1;
 
 
 
