@@ -40,8 +40,8 @@ public class Auto extends LinearOpMode {
     public static double WHEEL_POWER = 0.6;
     public static double CORRECTION = 1.0;
     public static double ROTATION_CORRECTION = (62/90);
-    public static double WOBBLE_OUT = 0;
-    public static double WOBBLE_IN = 1;
+    public static double WOBBLE_OUT = 1;
+    public static double WOBBLE_IN = 0;
     //Ticks per revolution = 537.6(same for both)
     //wheel size is 100mm and circumference ~31.415 cm(regular)
     //wheel size is 96mm and circumference~30.15 cm(strafer chassis)

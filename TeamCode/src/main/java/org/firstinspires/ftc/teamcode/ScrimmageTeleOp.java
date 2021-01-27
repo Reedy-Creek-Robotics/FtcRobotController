@@ -147,6 +147,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     }
                 }
 
+                // rotator
                 if (gamepad2.b && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//grabber = pressing a on controller 2(this will close the arm to open them press a again)
                     if (rotator.getPosition() != WOBBLE_OUT){
                         rotator.setPosition(WOBBLE_OUT);
@@ -161,14 +162,14 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 // shooter
                 if (gamepad2.dpad_up && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//press up on the dpad to raise the power by 0.1 and down to lower it by 0.1 (on controller 1, default power=0.6)
                     if (shooterPowerFactor < 1) {
-                        shooterPowerFactor += 0.1;
+                        shooterPowerFactor += 0.05;
                         timeSinceLastPress.reset();
                     }
                 }
 
                 if (gamepad2.dpad_down && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){
                     if (shooterPowerFactor > 0)
-                        shooterPowerFactor -= 0.1;
+                        shooterPowerFactor -= 0.05;
                     timeSinceLastPress.reset();
                 }
 
@@ -215,7 +216,18 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     }
 
                 }
-
+                if (gamepad2.left_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){
+                    if (intake.getPower() == 0){
+                        intake.setPower(-1);
+                        conveyor.setPower(-1);
+                        timeSinceLastPress.reset();
+                    }
+                    else {
+                        intake.setPower(0);
+                        conveyor.setPower(0);
+                        timeSinceLastPress.reset();
+                    }
+                }
 
 
 
