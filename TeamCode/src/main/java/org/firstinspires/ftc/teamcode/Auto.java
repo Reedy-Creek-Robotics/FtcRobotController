@@ -30,6 +30,7 @@ public class Auto extends LinearOpMode {
 
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber,rotator;
+    Servo loader;
     DcMotor lifter, shooter;
     //DistanceSensor distanceLeft, distanceBack;
     ElapsedTime t;
@@ -42,6 +43,8 @@ public class Auto extends LinearOpMode {
     public static double ROTATION_CORRECTION = (62/90);
     public static double WOBBLE_OUT = 0;
     public static double WOBBLE_IN = 1;
+    public static double FORWARD = 0.5;
+    public static double BACK = 0.8;
     //Ticks per revolution = 537.6(same for both)
     //wheel size is 100mm and circumference ~31.415 cm(regular)
     //wheel size is 96mm and circumference~30.15 cm(strafer chassis)
@@ -56,6 +59,7 @@ public class Auto extends LinearOpMode {
         rotator = hardwareMap.servo.get("rotator");
         lifter = hardwareMap.dcMotor.get("lifter");
         shooter = hardwareMap.dcMotor.get("shooter");
+        loader = hardwareMap.servo.get("loader");
         //distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
         //distanceBack = hardwareMap.get(DistanceSensor.class,"distanceBack");
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -77,9 +81,7 @@ public class Auto extends LinearOpMode {
         numRings = iu.getRings(); //iu.getRings();
         log("Number of Rings:", numRings);
         MoveWobble();
-        //shooter.setPower(1);
-        //sleep(0);//fill in time
-        //shooter.setPower(0);
+        shoot();
         strafeLeft(70, WHEEL_POWER);
 
         sleep(250);
@@ -136,6 +138,18 @@ public class Auto extends LinearOpMode {
             strafeLeft(40, WHEEL_POWER);
             moveStraight(-153, WHEEL_POWER);
         }
+    }
+    public void shoot(){
+        shooter.setPower(0.95);
+
+        for (int l=3; l>0; l--){
+            loader.setPosition(FORWARD);
+            sleep(100);
+            loader.setPosition(BACK);
+            sleep(100);
+        }
+
+        shooter.setPower(0);
     }
     /*public void moveWithDistance(double wantedDistanceX, double wantedDistanceY){
         double currentDistanceX = distanceLeft.getDistance(DistanceUnit.CM);
