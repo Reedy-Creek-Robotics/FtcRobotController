@@ -82,7 +82,8 @@ public class Auto extends LinearOpMode {
         log("Number of Rings:", numRings);
         MoveWobble();
         shoot();
-        strafeLeft(70, WHEEL_POWER);
+        moveStraight(10, WHEEL_POWER);
+        /*strafeLeft(70, WHEEL_POWER);
 
         sleep(250);
 
@@ -143,7 +144,7 @@ public class Auto extends LinearOpMode {
         shooter.setPower(0.95);
         sleep(500);
 
-        for (int l=3; l>0; l--){
+        for (int l=4; l>0; l--){
             loader.setPosition(FORWARD);
             sleep(500);
             loader.setPosition(BACK);
