@@ -82,7 +82,7 @@ public class Auto extends LinearOpMode {
         log("Number of Rings:", numRings);
         MoveWobble();
         shoot();
-        moveStraight(10, WHEEL_POWER);
+        moveStraight(20, WHEEL_POWER);
         /*strafeLeft(70, WHEEL_POWER);
 
         sleep(250);
@@ -121,11 +121,11 @@ public class Auto extends LinearOpMode {
         else if(numRings == 1){
             moveStraight(140, WHEEL_POWER);
             sleep(250);
-            strafeLeft(100, WHEEL_POWER);
+            strafeLeft(85, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
-            sleep(1000);
+            sleep(2000);
             grabber.setPosition(openWobble);
-            sleep(100);
+            sleep(500);
             moveStraight(-100, WHEEL_POWER);
             strafeRight(35, WHEEL_POWER);
         }
