@@ -114,7 +114,7 @@ public class Auto extends LinearOpMode {
             sleep(2000);
             grabber.setPosition(openWobble);
             sleep(500);
-            //strafeLeft(40, WHEEL_POWER);
+            strafeLeft(20, WHEEL_POWER);
             moveStraight(-45, WHEEL_POWER);
 
         }
@@ -136,7 +136,7 @@ public class Auto extends LinearOpMode {
                 sleep(1000);
             grabber.setPosition(openWobble);
             sleep(500);
-            strafeLeft(40, WHEEL_POWER);
+            strafeLeft(20, WHEEL_POWER);
             moveStraight(-153, WHEEL_POWER);
         }
     }
