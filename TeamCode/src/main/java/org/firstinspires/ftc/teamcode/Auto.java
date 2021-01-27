@@ -113,7 +113,7 @@ public class Auto extends LinearOpMode {
             sleep(2000);
             grabber.setPosition(openWobble);
             sleep(500);
-            strafeLeft(40, WHEEL_POWER);
+            //strafeLeft(40, WHEEL_POWER);
             moveStraight(-45, WHEEL_POWER);
 
         }
@@ -141,12 +141,13 @@ public class Auto extends LinearOpMode {
     }
     public void shoot(){
         shooter.setPower(0.95);
+        sleep(500);
 
         for (int l=3; l>0; l--){
             loader.setPosition(FORWARD);
-            sleep(100);
+            sleep(500);
             loader.setPosition(BACK);
-            sleep(100);
+            sleep(500);
         }
 
         shooter.setPower(0);
