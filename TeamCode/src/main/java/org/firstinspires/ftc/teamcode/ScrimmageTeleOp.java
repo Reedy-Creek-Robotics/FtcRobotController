@@ -99,17 +99,20 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
         if (opModeIsActive()) {
             double wheelsPowerFactor = 0.6;
-            double shooterPowerFactor = 0.8;
+            double shooterPowerFactor = 1;
             timeSinceLastPress.reset();
 
 
 
             while (opModeIsActive()) {
                 //Drivetrain
-                double drive = -gamepad1.left_stick_y * wheelsPowerFactor;//vertical movement = the left stick on controller one(moving on the y-axis)
-                double strafe = -(gamepad1.left_stick_x * wheelsPowerFactor);//Strafing = the left stick on controller 1(moving on the x-axis)
-                double rotate = gamepad1.right_stick_x * wheelsPowerFactor;//Rotating = the right stick on controller 1(moving on the x-axis)
-                double lift = gamepad2.left_stick_y;
+                double output_x = Math.pow(gamepad1.left_stick_x, 3);
+                double output_y = Math.pow(gamepad1.left_stick_y, 3);
+                double output_xRight = Math.pow(gamepad1.right_stick_x, 3);
+                double drive = -output_y* wheelsPowerFactor;//vertical movement = the left stick on controller one(moving on the y-axis)
+                double strafe = -(output_x * wheelsPowerFactor);//Strafing = the left stick on controller 1(moving on the x-axis)
+                double rotate = output_xRight * wheelsPowerFactor;//Rotating = the right stick on controller 1(moving on the x-axis)
+                double lift = gamepad2.left_stick_y / 3;
                 telemetry.addData("Rotate Value", gamepad1.right_stick_x * wheelsPowerFactor);
                 frontLeft.setPower(drive - (strafe - rotate));
                 backLeft.setPower(drive + strafe + rotate);
@@ -184,7 +187,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     }
                 }
 
-                double lifter = (gamepad2.right_stick_y - 0.5) * 2;
+
 
                 //shooter
 

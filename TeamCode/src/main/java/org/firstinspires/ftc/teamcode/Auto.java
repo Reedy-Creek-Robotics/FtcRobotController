@@ -127,7 +127,7 @@ public class Auto extends LinearOpMode {
             grabber.setPosition(openWobble);
             sleep(500);
             moveStraight(-100, WHEEL_POWER);
-            strafeRight(35, WHEEL_POWER);
+            strafeRight(50, WHEEL_POWER);
         }
         else if(numRings == 4){
             moveStraight(200, WHEEL_POWER);
@@ -136,13 +136,13 @@ public class Auto extends LinearOpMode {
                 sleep(1000);
             grabber.setPosition(openWobble);
             sleep(500);
-            strafeLeft(20, WHEEL_POWER);
+            strafeLeft(10, WHEEL_POWER);
             moveStraight(-153, WHEEL_POWER);
         }
     }
     public void shoot(){
-        shooter.setPower(0.95);
-        sleep(500);
+        shooter.setPower(1);
+        sleep(750);
 
         for (int l=4; l>0; l--){
             loader.setPosition(FORWARD);
