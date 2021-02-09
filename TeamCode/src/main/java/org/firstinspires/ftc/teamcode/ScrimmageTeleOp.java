@@ -88,12 +88,14 @@ public class ScrimmageTeleOp extends LinearOpMode {
         conveyor = hardwareMap.dcMotor.get("conveyor");
         shooter = hardwareMap.dcMotor.get("shooter");
         loader = hardwareMap.servo.get("loader");
-
+        shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         boolean isBPressed = false;
         boolean isAPressed = false;
+        double openWobble = 0.7;
+        double closeWobble = 1;
         ElapsedTime timeSinceLastPress = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         waitForStart();
-        grabber.setPosition(0.5);
+        grabber.setPosition(openWobble);
         rotator.setPosition(WOBBLE_IN);
         loader.setPosition(BACK);
 
@@ -140,12 +142,12 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
                 //wobble
                 if (gamepad2.a && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//grabber = pressing a on controller 2(this will close the arm to open them press a again)
-                    if (grabber.getPosition() <= 0.3){
-                        grabber.setPosition(0.5);
+                    if (grabber.getPosition() == closeWobble){
+                        grabber.setPosition(openWobble);
                         timeSinceLastPress.reset();
                     }
                     else {
-                        grabber.setPosition(0.2);
+                        grabber.setPosition(closeWobble);
                         timeSinceLastPress.reset();
                     }
                 }
@@ -202,6 +204,21 @@ public class ScrimmageTeleOp extends LinearOpMode {
                     timeSinceLastPress.reset();
                 }
 
+                if (gamepad1.left_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
+                    for (int l=4; l>0; l--){
+                        loader.setPosition(FORWARD);
+                        sleep(500);
+                        loader.setPosition(BACK);
+                        sleep(500);
+                    }
+                    timeSinceLastPress.reset();;
+                }
+                if (gamepad2.y && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
+                    if (grabber.getPosition() > 0){
+                        grabber.setPosition(0);
+                        timeSinceLastPress.reset();
+                    }
+                }
 
 
                 //intake

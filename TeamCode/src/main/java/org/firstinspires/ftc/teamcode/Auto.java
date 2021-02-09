@@ -62,12 +62,13 @@ public class Auto extends LinearOpMode {
         loader = hardwareMap.servo.get("loader");
         //distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
         //distanceBack = hardwareMap.get(DistanceSensor.class,"distanceBack");
+        shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        openWobble = 0.17;
-        closeWobble = 0.5;
+        openWobble = 0.8;
+        closeWobble = 1;
         grabber.setPosition(closeWobble);
         ImageUtility iu = new ImageUtility();
         iu.init(telemetry, hardwareMap);
@@ -114,7 +115,7 @@ public class Auto extends LinearOpMode {
             sleep(2000);
             grabber.setPosition(openWobble);
             sleep(500);
-            strafeLeft(20, WHEEL_POWER);
+            //strafeLeft(10, WHEEL_POWER);
             moveStraight(-45, WHEEL_POWER);
 
         }
@@ -136,16 +137,17 @@ public class Auto extends LinearOpMode {
                 sleep(1000);
             grabber.setPosition(openWobble);
             sleep(500);
-            strafeLeft(10, WHEEL_POWER);
+            //strafeLeft(5, WHEEL_POWER);
             moveStraight(-153, WHEEL_POWER);
         }
     }
     public void shoot(){
-        shooter.setPower(1);
+        shooter.setPower(0.95);
         sleep(750);
 
         for (int l=4; l>0; l--){
             loader.setPosition(FORWARD);
+            shooter.setPower(0.9);
             sleep(500);
             loader.setPosition(BACK);
             sleep(500);
