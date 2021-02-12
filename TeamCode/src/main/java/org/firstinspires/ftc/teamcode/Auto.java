@@ -89,12 +89,17 @@ public class Auto extends LinearOpMode {
         shoot();
 
 
-
-        strafeLeft(70, WHEEL_POWER);
-        moveStraight(-108, WHEEL_POWER);
+        moveStraight(-145, WHEEL_POWER);
+        sleep(200);
+        strafeLeft(95, WHEEL_POWER);
+        sleep(200);
+        //moveStraight(40, WHEEL_POWER);
+        //grabber.setPosition(closeWobble);
+       /* strafeLeft(110, WHEEL_POWER);
+        moveStraight(-135, WHEEL_POWER);
         strafeRight(15, WHEEL_POWER);
         grabber.setPosition(closeWobble);
-        //strafeRight(100);
+        //strafeRight(100);*/
 
         /*moveStraight(-132, WHEEL_POWER);
         moveStraight(51, WHEEL_POWER);
@@ -102,11 +107,11 @@ public class Auto extends LinearOpMode {
         grabber.setPosition(closeWobble);
         sleep(200);*/
 
-        moveStraight(41, WHEEL_POWER);
+        //moveStraight(41, WHEEL_POWER);
 
 
 
-        sleep(5000);
+        //sleep(5000);
     }
     public void MoveWobble() {
         if(numRings == 0){
@@ -130,7 +135,7 @@ public class Auto extends LinearOpMode {
             grabber.setPosition(openWobble);
             sleep(500);
             moveStraight(-100, WHEEL_POWER);
-            strafeRight(10, WHEEL_POWER);
+            strafeRight(40, WHEEL_POWER);
         }
         else if(numRings == 4){
             moveStraight(200, WHEEL_POWER);
