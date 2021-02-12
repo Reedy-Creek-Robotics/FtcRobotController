@@ -132,7 +132,7 @@ public class Auto extends LinearOpMode {
             grabber.setPosition(openWobble);
             sleep(500);
             moveStraight(-100, WHEEL_POWER);
-            strafeRight(30, WHEEL_POWER);
+            strafeRight(10, WHEEL_POWER);
         }
         else if(numRings == 4){
             moveStraight(200, WHEEL_POWER);
