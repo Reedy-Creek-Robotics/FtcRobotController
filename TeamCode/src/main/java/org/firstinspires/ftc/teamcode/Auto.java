@@ -70,7 +70,7 @@ public class Auto extends LinearOpMode {
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
         backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-        openWobble = 0.8;
+        openWobble = 0.3;
         closeWobble = 1;
         grabber.setPosition(closeWobble);
         ImageUtility iu = new ImageUtility();
@@ -85,6 +85,7 @@ public class Auto extends LinearOpMode {
         numRings = iu.getRings(); //iu.getRings();
         log("Number of Rings:", numRings);
         MoveWobble();
+
         shoot();
         moveStraight(41, WHEEL_POWER);
         /*strafeLeft(70, WHEEL_POWER);
@@ -120,7 +121,7 @@ public class Auto extends LinearOpMode {
             sleep(500);
             //strafeLeft(10, WHEEL_POWER);
             moveStraight(-45, WHEEL_POWER);
-
+            strafeLeft(20, WHEEL_POWER);
         }
         else if(numRings == 1){
             moveStraight(140, WHEEL_POWER);
@@ -131,7 +132,7 @@ public class Auto extends LinearOpMode {
             grabber.setPosition(openWobble);
             sleep(500);
             moveStraight(-100, WHEEL_POWER);
-            strafeRight(50, WHEEL_POWER);
+            strafeRight(30, WHEEL_POWER);
         }
         else if(numRings == 4){
             moveStraight(200, WHEEL_POWER);
@@ -142,6 +143,7 @@ public class Auto extends LinearOpMode {
             sleep(500);
             //strafeLeft(5, WHEEL_POWER);
             moveStraight(-153, WHEEL_POWER);
+            strafeLeft(20,WHEEL_POWER);
         }
     }
     public void shoot(){
