@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -31,7 +32,8 @@ public class Auto extends LinearOpMode {
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber,rotator;
     Servo loader;
-    DcMotor lifter, shooter;
+    DcMotor lifter;
+    DcMotorEx shooter;
     //DistanceSensor distanceLeft, distanceBack;
     ElapsedTime t;
     int numRings;
@@ -58,8 +60,9 @@ public class Auto extends LinearOpMode {
         grabber = hardwareMap.servo.get("grabber");
         rotator = hardwareMap.servo.get("rotator");
         lifter = hardwareMap.dcMotor.get("lifter");
-        shooter = hardwareMap.dcMotor.get("shooter");
+        shooter = hardwareMap.get(DcMotorEx.class, "shooter");
         loader = hardwareMap.servo.get("loader");
+        shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
         //distanceBack = hardwareMap.get(DistanceSensor.class,"distanceBack");
         shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -83,7 +86,7 @@ public class Auto extends LinearOpMode {
         log("Number of Rings:", numRings);
         MoveWobble();
         shoot();
-        moveStraight(20, WHEEL_POWER);
+        moveStraight(41, WHEEL_POWER);
         /*strafeLeft(70, WHEEL_POWER);
 
         sleep(250);
@@ -142,18 +145,17 @@ public class Auto extends LinearOpMode {
         }
     }
     public void shoot(){
-        shooter.setPower(0.95);
+        shooter.setVelocity(2394);
         sleep(750);
 
         for (int l=4; l>0; l--){
             loader.setPosition(FORWARD);
-            shooter.setPower(0.9);
             sleep(500);
             loader.setPosition(BACK);
             sleep(500);
         }
 
-        shooter.setPower(0);
+        shooter.setVelocity(0);
     }
     /*public void moveWithDistance(double wantedDistanceX, double wantedDistanceY){
         double currentDistanceX = distanceLeft.getDistance(DistanceUnit.CM);
