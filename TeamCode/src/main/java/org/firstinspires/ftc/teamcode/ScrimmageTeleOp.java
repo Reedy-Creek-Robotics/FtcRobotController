@@ -41,6 +41,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -62,7 +63,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
     private Servo rotator;
     private DcMotor lifter;
     private DcMotor intake;
-    private DcMotor shooter;
+    private DcMotorEx shooter;
     private Servo loader;
     private DcMotor conveyor;
     public static double FORWARD = 0.5;
@@ -86,12 +87,12 @@ public class ScrimmageTeleOp extends LinearOpMode {
         lifter = hardwareMap.dcMotor.get("lifter");
         intake = hardwareMap.dcMotor.get("intake");
         conveyor = hardwareMap.dcMotor.get("conveyor");
-        shooter = hardwareMap.dcMotor.get("shooter");
+        shooter = hardwareMap.get(DcMotorEx.class, "shooter");
         loader = hardwareMap.servo.get("loader");
         shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         boolean isBPressed = false;
         boolean isAPressed = false;
-        double openWobble = 0.7;
+        double openWobble = 0.3;
         double closeWobble = 1;
         ElapsedTime timeSinceLastPress = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
         waitForStart();
@@ -180,11 +181,11 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
                 if (gamepad2.x && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//press up on the dpad to raise the power by 0.1 and down to lower it by 0.1 (on controller 1, default power=0.6)
                     if (shooter.getPower() > 0) {
-                        shooter.setPower(0);
+                        shooter.setVelocity(0);
                         timeSinceLastPress.reset();
                     }
                     else {
-                        shooter.setPower(shooterPowerFactor);
+                        shooter.setVelocity(2394);//2268;90%power
                         timeSinceLastPress.reset();
                     }
                 }
