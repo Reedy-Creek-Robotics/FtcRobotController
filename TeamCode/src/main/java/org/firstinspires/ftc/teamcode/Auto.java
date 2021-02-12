@@ -88,16 +88,18 @@ public class Auto extends LinearOpMode {
         log("Number of Rings:", numRings);
         MoveWobble();
 
-        shoot();
+        shoot(4);
 
+        intake.setPower(1);
+        conveyor.setPower(1);
+        moveStraight(-40, WHEEL_POWER);
+        sleep(200);
+        //strafeLeft(8, WHEEL_POWER);
+        sleep(750);
+        shoot(1);
+        moveStraight(81, WHEEL_POWER);
 
-        moveStraight(-30, WHEEL_POWER);
-        sleep(200);
-        strafeLeft(8, WHEEL_POWER);
-        sleep(200);
-        intake.setPower(-1);
-        conveyor.setPower(-1);
-        moveStraight(-5,WHEEL_POWER);
+       // moveStraight(-5,WHEEL_POWER);
         //moveStraight(40, WHEEL_POWER);
         //grabber.setPosition(closeWobble);
        /* strafeLeft(110, WHEEL_POWER);
@@ -140,7 +142,7 @@ public class Auto extends LinearOpMode {
             grabber.setPosition(openWobble);
             sleep(500);
             moveStraight(-100, WHEEL_POWER);
-            strafeRight(40, WHEEL_POWER);
+            strafeRight(45, WHEEL_POWER);
         }
         else if(numRings == 4){
             moveStraight(200, WHEEL_POWER);
@@ -154,11 +156,11 @@ public class Auto extends LinearOpMode {
             strafeLeft(20,WHEEL_POWER);
         }
     }
-    public void shoot(){
+    public void shoot(int numTimes){
         shooter.setVelocity(2394);
         sleep(750);
 
-        for (int l=4; l>0; l--){
+        for (int l=numTimes; l>0; l--){
             loader.setPosition(FORWARD);
             sleep(500);
             loader.setPosition(BACK);
