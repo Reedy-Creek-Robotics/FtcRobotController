@@ -32,7 +32,7 @@ public class Auto extends LinearOpMode {
     DcMotor frontLeft,backLeft,frontRight,backRight;
     Servo grabber,rotator;
     Servo loader;
-    DcMotor lifter;
+    DcMotor lifter, intake, conveyor;
     DcMotorEx shooter;
     //DistanceSensor distanceLeft, distanceBack;
     ElapsedTime t;
@@ -60,6 +60,8 @@ public class Auto extends LinearOpMode {
         grabber = hardwareMap.servo.get("grabber");
         rotator = hardwareMap.servo.get("rotator");
         lifter = hardwareMap.dcMotor.get("lifter");
+        intake = hardwareMap.dcMotor.get("intake");
+        conveyor = hardwareMap.dcMotor.get("conveyor");
         shooter = hardwareMap.get(DcMotorEx.class, "shooter");
         loader = hardwareMap.servo.get("loader");
         shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -89,10 +91,13 @@ public class Auto extends LinearOpMode {
         shoot();
 
 
-        moveStraight(-145, WHEEL_POWER);
+        moveStraight(-30, WHEEL_POWER);
         sleep(200);
-        strafeLeft(95, WHEEL_POWER);
+        strafeLeft(8, WHEEL_POWER);
         sleep(200);
+        intake.setPower(-1);
+        conveyor.setPower(-1);
+        moveStraight(-5,WHEEL_POWER);
         //moveStraight(40, WHEEL_POWER);
         //grabber.setPosition(closeWobble);
        /* strafeLeft(110, WHEEL_POWER);
