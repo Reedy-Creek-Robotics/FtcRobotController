@@ -46,7 +46,8 @@ public class Auto extends LinearOpMode {
     public static double WOBBLE_OUT = 0;
     public static double WOBBLE_IN = 1;
     public static double FORWARD = 0.5;
-    public static double BACK = 0.8;
+    public static double BACK = 0.65;
+    int servoDelay = 200;
     //Ticks per revolution = 537.6(same for both)
     //wheel size is 100mm and circumference ~31.415 cm(regular)
     //wheel size is 96mm and circumference~30.15 cm(strafer chassis)
@@ -67,6 +68,10 @@ public class Auto extends LinearOpMode {
         shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //distanceLeft = hardwareMap.get(DistanceSensor.class,"distanceLeft");
         //distanceBack = hardwareMap.get(DistanceSensor.class,"distanceBack");
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         shooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backLeft.setDirection(DcMotorSimple.Direction.FORWARD);
         frontLeft.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -86,18 +91,37 @@ public class Auto extends LinearOpMode {
         sleep(500);
         numRings = iu.getRings(); //iu.getRings();
         log("Number of Rings:", numRings);
+        sleep(1000);
         MoveWobble();
 
         shoot(4);
 
-        intake.setPower(1);
-        conveyor.setPower(1);
-        moveStraight(-40, WHEEL_POWER);
-        sleep(200);
-        //strafeLeft(8, WHEEL_POWER);
-        sleep(750);
-        shoot(1);
-        moveStraight(81, WHEEL_POWER);
+        if (numRings == 4){
+            moveStraight(-25, WHEEL_POWER);
+            moveStraight(10, WHEEL_POWER);
+            intake.setPower(1);
+            conveyor.setPower(1);
+            moveStraight(-20, WHEEL_POWER);
+            sleep(200);
+            moveStraight(-15, WHEEL_POWER);
+            //strafeLeft(8, WHEEL_POWER);
+            sleep(1250);
+            moveStraight(20, WHEEL_POWER);
+            shoot2(3);
+            moveStraight(60, WHEEL_POWER);
+        }
+        else {
+           strafeRight(10, WHEEL_POWER);
+            intake.setPower(1);
+            conveyor.setPower(1);
+            moveStraight(-25, WHEEL_POWER);
+            sleep(200);
+            //strafeLeft(8, WHEEL_POWER);
+            sleep(1250);
+            shoot2(1);
+            moveStraight(40, WHEEL_POWER);
+        }
+
 
        // moveStraight(-5,WHEEL_POWER);
         //moveStraight(40, WHEEL_POWER);
@@ -130,8 +154,8 @@ public class Auto extends LinearOpMode {
             grabber.setPosition(openWobble);
             sleep(500);
             //strafeLeft(10, WHEEL_POWER);
-            moveStraight(-45, WHEEL_POWER);
-            strafeLeft(20, WHEEL_POWER);
+            moveStraight(-35, WHEEL_POWER);
+            strafeLeft(40, WHEEL_POWER);
         }
         else if(numRings == 1){
             moveStraight(140, WHEEL_POWER);
@@ -141,30 +165,43 @@ public class Auto extends LinearOpMode {
             sleep(2000);
             grabber.setPosition(openWobble);
             sleep(500);
-            moveStraight(-100, WHEEL_POWER);
-            strafeRight(45, WHEEL_POWER);
+            moveStraight(-95, WHEEL_POWER);
+            strafeRight(20, WHEEL_POWER);
         }
         else if(numRings == 4){
             moveStraight(200, WHEEL_POWER);
             strafeLeft(25, WHEEL_POWER);
             rotator.setPosition(WOBBLE_OUT);
-                sleep(1000);
+            sleep(1000);
             grabber.setPosition(openWobble);
             sleep(500);
             //strafeLeft(5, WHEEL_POWER);
-            moveStraight(-153, WHEEL_POWER);
-            strafeLeft(20,WHEEL_POWER);
+            moveStraight(-160, WHEEL_POWER);
+            strafeLeft(35,WHEEL_POWER);
         }
     }
     public void shoot(int numTimes){
-        shooter.setVelocity(2394);
-        sleep(750);
+        shooter.setVelocity(1500);
+        sleep(350);
 
         for (int l=numTimes; l>0; l--){
             loader.setPosition(FORWARD);
-            sleep(500);
+            sleep(servoDelay);
             loader.setPosition(BACK);
-            sleep(500);
+            sleep(servoDelay);
+        }
+
+        shooter.setVelocity(0);
+    }
+    public void shoot2(int numTimes){
+        shooter.setVelocity(1600);
+        sleep(500);
+
+        for (int l=numTimes; l>0; l--){
+            loader.setPosition(FORWARD);
+            sleep(servoDelay);
+            loader.setPosition(BACK);
+            sleep(servoDelay);
         }
 
         shooter.setVelocity(0);

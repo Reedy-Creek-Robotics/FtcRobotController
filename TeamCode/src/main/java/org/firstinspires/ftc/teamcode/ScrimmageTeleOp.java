@@ -67,9 +67,10 @@ public class ScrimmageTeleOp extends LinearOpMode {
     private Servo loader;
     private DcMotor conveyor;
     public static double FORWARD = 0.5;
-    public static double BACK = 0.8;
+    public static double BACK = 0.65;
     public static double WOBBLE_OUT = 0;
     public static double WOBBLE_IN = 1;
+
 
 
 
@@ -99,6 +100,9 @@ public class ScrimmageTeleOp extends LinearOpMode {
         grabber.setPosition(openWobble);
         rotator.setPosition(WOBBLE_IN);
         loader.setPosition(BACK);
+        int servoDelay = 200;
+        int shooterVelocity = 1600;
+
 
         if (opModeIsActive()) {
             double wheelsPowerFactor = 0.6;
@@ -115,7 +119,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 double drive = -output_y* wheelsPowerFactor;//vertical movement = the left stick on controller one(moving on the y-axis)
                 double strafe = -(output_x * wheelsPowerFactor);//Strafing = the left stick on controller 1(moving on the x-axis)
                 double rotate = output_xRight * wheelsPowerFactor;//Rotating = the right stick on controller 1(moving on the x-axis)
-                double lift = gamepad2.left_stick_y / 3;
+                double lift = gamepad2.left_stick_y / 2;
                 telemetry.addData("Rotate Value", gamepad1.right_stick_x * wheelsPowerFactor);
                 frontLeft.setPower(drive - (strafe - rotate));
                 backLeft.setPower(drive + strafe + rotate);
@@ -167,15 +171,15 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
                 // shooter
                 if (gamepad2.dpad_up && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//press up on the dpad to raise the power by 0.1 and down to lower it by 0.1 (on controller 1, default power=0.6)
-                    if (shooterPowerFactor < 1) {
-                        shooterPowerFactor += 0.05;
+                    if (servoDelay < 1000) {
+                        servoDelay += 50;
                         timeSinceLastPress.reset();
                     }
                 }
 
                 if (gamepad2.dpad_down && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){
-                    if (shooterPowerFactor > 0)
-                        shooterPowerFactor -= 0.05;
+                    if (servoDelay > 0)
+                        servoDelay -= 50;
                     timeSinceLastPress.reset();
                 }
 
@@ -185,9 +189,23 @@ public class ScrimmageTeleOp extends LinearOpMode {
                         timeSinceLastPress.reset();
                     }
                     else {
-                        shooter.setVelocity(2394);//2268;90%power
+                        shooter.setVelocity(shooterVelocity);//2268;90%power 2394;94% power
                         timeSinceLastPress.reset();
                     }
+                }
+                if (gamepad1.y && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//press up on the dpad to raise the power by 0.1 and down to lower it by 0.1 (on controller 1, default power=0.6)
+                    if (shooterVelocity < 2500) {
+                        shooterVelocity += 100;
+                        shooter.setVelocity(shooterVelocity);
+                        timeSinceLastPress.reset();
+                    }
+                }
+
+                if (gamepad1.a && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){
+                    if (shooterVelocity > 0)
+                        shooterVelocity -= 100;
+                        shooter.setVelocity(shooterVelocity);
+                        timeSinceLastPress.reset();
                 }
 
 
@@ -196,21 +214,26 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
 
                 if (gamepad1.right_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//loader = pressing y on controller 2(this will push the ring, press y again to let another ring in)
-                    if (loader.getPosition() == BACK) {
-                        loader.setPosition(FORWARD);
-                    }
-                    else {
-                        loader.setPosition(BACK);
-                    }
+                    loader.setPosition(FORWARD);
+                    sleep(servoDelay);
+                    loader.setPosition(BACK);
+                    sleep(servoDelay);
+                    timeSinceLastPress.reset();
+                }
+                if (gamepad1.x && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {//loader = pressing y on controller 2(this will push the ring, press y again to let another ring in)
+                    loader.setPosition(FORWARD);
+                    sleep(servoDelay);
+                    loader.setPosition(BACK);
+                    sleep(servoDelay);
                     timeSinceLastPress.reset();
                 }
 
                 if (gamepad1.left_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY) {
-                    for (int l=4; l>0; l--){
+                    for (int l=3; l>0; l--){
                         loader.setPosition(FORWARD);
-                        sleep(500);
+                        sleep(servoDelay);
                         loader.setPosition(BACK);
-                        sleep(500);
+                        sleep(servoDelay);
                     }
                     timeSinceLastPress.reset();;
                 }
@@ -225,7 +248,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 //intake
 
                 if (gamepad2.right_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){//intake = pressing b on controller 2(this will turn the intake on, press b again to turn it off)
-                    if (intake.getPower() == 0){
+                    if (intake.getPower() <= 0){
                         intake.setPower(1);
                         conveyor.setPower(1);
                         timeSinceLastPress.reset();
@@ -238,7 +261,7 @@ public class ScrimmageTeleOp extends LinearOpMode {
 
                 }
                 if (gamepad2.left_bumper && timeSinceLastPress.milliseconds() >= BUTTON_DELAY){
-                    if (intake.getPower() == 0){
+                    if (intake.getPower() >= 0){
                         intake.setPower(-1);
                         conveyor.setPower(-1);
                         timeSinceLastPress.reset();
@@ -256,8 +279,9 @@ public class ScrimmageTeleOp extends LinearOpMode {
                 telemetry.addData("change number", 1.1);
                 telemetry.addData("Drive Power:", drive);
                 telemetry.addData("Wheel power factor:", df2.format(wheelsPowerFactor));
-                telemetry.addData("Shooter power factor:",  df2.format(shooterPowerFactor));
-                //telemetry.addData("Intake power factor:", df2.format(intake.getPower()));
+                telemetry.addData("Servo Delay:",  df2.format(servoDelay));
+                telemetry.addData("Actual Shooter Velocity: ", df2.format(shooter.getVelocity()));
+                telemetry.addData("Set Shooter Velocity:    ", df2.format(shooterVelocity));
                 telemetry.update();
             }
         }
